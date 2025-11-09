@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tasks - TaskHive</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <link
+			rel="shortcut icon"
+			href="../../../images/taskhivelogo.svg"
+			type="image/x-icon"
+		/>
+
+    <link rel="stylesheet" href="https://use.hugeicons.com/font/icons.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#375DFB',
+                        secondary: '#3985f9',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+
+.assignee-dropdown {
+  transition: opacity 0.15s ease-in-out, transform 0.15s ease-in-out;
+  opacity: 0;
+  transform: translateY(-4px);
+}
+
+.assignee-dropdown.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#contextMenu {
+  position: absolute;
+  z-index: 9999 !important;
+}
+
+
+      :root {
+        --color-dark-blue: #1e3a8a;
+        --color-base-blue: #375DFB;
+        --color-neutral-0: #ffffff;
+      }
+      
+      .menu-item {
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+      
+      .menu-item:hover {
+        background-color: var(--color-base-blue);
+        color: var(--color-neutral-0);
+      }
+      
+      .menu-item:hover .icon-black {
+        display: none;
+      }
+      
+      .menu-item:hover .icon-white {
+        display: inline-block !important;
+      }
+      
+      .search-bar {
+        border: 1px solid #e5e7eb;
+        transition: all 0.3s ease;
+      }
+      
+      .search-bar:focus-within {
+        border-color: var(--color-base-blue);
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+      }
+      
+      #mobileSidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+      }
+      
+      #mobileSidebar:not(.hidden) {
+        transform: translateX(0);
+      }
+
+    
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out;
+}
+
+      
+      @media (max-width: 640px) {
+        .menu-item {
+          padding: 0.75rem;
+          margin-bottom: 0.5rem;
+          border-radius: 0.5rem;
+        }
+      }
+      
+      @media (min-width: 768px) and (max-width: 1279px) {
+        .tablet-layout {
+          display: flex;
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-white min-h-screen">
+    <!---------------------- Desktop Layout ------------------------->
+    <div class="xl:flex xl:h-screen" id="desktop-nav">
+      <!-- Sidebar -->
+      <aside id="sidebar" class="hidden xl:block w-64 bg-white shadow-lg p-4 fixed xl:relative h-full xl:h-auto z-40">
+        <div class="logo flex items-center gap-2 mb-6 ps-2">
+          <img src="../../../images/taskhivelogo.svg" alt="TaskHive logo" class="w-7 h-7" />
+          <h1 class="text-2xl font-bold text-[var(--color-dark-blue)]">
+            TaskHive
+          </h1>
+        </div>
+        <nav class="flex flex-col gap-5">
+          <div class="menu-item xl:w-44 xl:px-3 xl:py-2 xl:rounded-xl flex items-center gap-4">
+            <img src="../../../images/category bold-dark.svg" class="icon-black w-5 h-5" alt="" />
+            <img src="../../../images/category bold-white.svg" class="icon-white hidden w-5 h-5" alt="" />
+            <a href="../dashboard/dashboard.html" class="flex items-center text-lg font-awesome"> Dashboard</a>
+          </div>
+
+          <div class="menu-item xl:w-44 xl:px-3 xl:py-2 xl:rounded-xl flex items-center gap-4">
+            <img src="../../../images/team-icon-dark.svg" class="icon-black w-5 h-5" alt="" />
+            <img src="../../../images/team-icon-white.svg" class="icon-white hidden w-5 h-5" alt="" />
+            <a href="../team/team.html" class="flex items-center text-lg font-awesome">Teams</a>
+          </div>
+
+          <div class="menu-item xl:w-44 xl:px-3 xl:py-2 xl:rounded-xl flex items-center gap-4">
+            <i class="fa-solid fa-project-diagram icon-black text-lg"></i>
+            <i class="fa-solid fa-project-diagram icon-white text-[var(--color-neutral-0)] hidden text-lg"></i>
+
+            <a href="../project/project.html" class="flex items-center text-lg font-awesome">Projects</a>
+          </div>
+
+          <div class="menu-item xl:w-44 xl:px-3 xl:py-2 xl:rounded-xl flex items-center gap-4 xl:ps-2 bg-[var(--color-base-blue)]">
+            <img src="../../../images/Task-Line-dark.svg" class="icon-black hidden" alt="" />
+            <img src="../../../images/Taskline-white.svg" class="icon-white" alt="" />
+            <a href="../task/task.html" class="flex items-center text-lg font-awesome text-[var(--color-neutral-0)]">Tasks</a>
+          </div>
+
+          <div class="menu-item xl:w-44 xl:px-3 xl:py-2 xl:rounded-xl flex items-center gap-4">
+            <i class="hgi hgi-stroke hgi-notification-01 icon-black text-lg"></i>
+            <i class="hgi hgi-stroke hgi-notification-01 icon-white text-[var(--color-neutral-0)] hidden text-lg"></i>
+            <a href="../others/notification.html" class="flex items-center text-lg font-awesome">Notifications</a>
+          </div>
+
+          <div class="menu-item xl:w-44 xl:px-3 xl:py-2 xl:rounded-xl flex items-center gap-4">
+            <i class="hgi hgi-stroke hgi-settings-02 icon-black text-lg"></i>
+            <i class="hgi hgi-stroke hgi-settings-02 icon-white text-[var(--color-neutral-0)] hidden text-lg"></i>
+            <a href="../setting/settings.html" class="flex items-center text-lg font-awesome">Settings</a>
+          </div>
+
+          <div class="menu-item xl:w-44 xl:px-3 xl:py-2 xl:rounded-xl flex items-center gap-4">
+            <i class="hgi hgi-stroke hgi-logout-circle-02 icon-black text-lg"></i>
+            <i class="hgi hgi-stroke hgi-logout-circle-02 icon-white text-[var(--color-neutral-0)] hidden text-lg"></i>
+            <a href="#" class="signOutBtn flex items-center text-lg font-awesome">Sign Out</a>
+          </div>
+        </nav>
+      </aside>
+
+      <!------------------- Main Content ---------------------->
+      <div class="flex-1 flex flex-col xl:ml-0">
+        <!-- Desktop Header -->
+        <header class="h-20 hidden xl:flex items-center justify-between px-6 bg-white shadow-sm sticky top-0 z-40">
+
+          <div class="flex items-center gap-4">
+            <img
+              src="../../../images/Avatarbrown.svg"
+              class="w-12 h-12 rounded-full object-cover"
+              alt="User Avatar"
+            />
+          
+            <div><h2 class="font-semibold text-4xl md:text-xl">
+                <span id="username"></span>
+              </h2>
+              <p class="text-sm md:text-base text-gray-600 hidden lg:block">
+                Welcome back to TaskHive 👋🏻
+              </p></div>
+        
+          </div>
+        
+
+    <!---------- Search + Notification + Create Task ------------>
+          <div class="flex gap-3 items-center">
+          <div class="flex gap-2 items-center flex-wrap">
+
+            <div
+              class="flex search-bar h-8 w-full md:w-64 px-2 py-1 rounded-full border hidden"
+              id="search-bar"
+            >
+          <input
+              type="text"
+              placeholder="Search task..."
+              id="search-input"
+              class="w-full h-full outline-none bg-transparent focus:outline-none border-none focus:ring-0"
+              oninput="handleTaskSearch(event)"
+            />
+
+            </div>
+
+            <div class="flex items-center gap-4 hidden md:flex">
+              <img
+                src="../../../images/search-2-line.svg"
+                id="search-img"
+                alt="Search"
+              />
+              <a href="../../html/others/notification.html">
+                <img
+                  src="../../../images/Topbar%20Item%20Button%20%5BTopbar%5D%20%5B1.0%5D.svg"
+                  alt="Topbar action"
+              /></a>
+            </div>
+
+              <button id="createTaskBtn" class="bg-primary px-4 py-2 rounded-lg text-2xl md:text-sm font-medium text-white flex items-center gap-2 hidden md:block hover:bg-secondary">
+                <i class="fa-solid fa-plus"></i> Create Task
+            </button>
+
+            </div>
+          </div>
+        </header>
+
+        <!----------------------- Mobile / Tablet Header --------------------------->
+        <header class="p-2 xl:hidden bg-white shadow-sm sticky top-0 z-40">
+          <div class="flex justify-between items-center mb-2"></div>
+            
+            <!-- <div class="flex items-center gap-3">                
+              <img src="images/ta" alt="TaskHive logo" class="w-10 h-10 sm:w-12 sm:h-12" />
+              <h1 class="text-xl sm:text-2xl md:text-3xl font-bold text-[var(--color-dark-blue)]">
+                TaskHive
+              </h1>
+            </div> -->
+
+            <!-- <button class="menuBtn p-2 hover:bg-gray-100 rounded-lg transition-colors">
+              <i class="fa-solid fa-bars text-xl sm:text-2xl md:text-3xl text-gray-700"></i>
+            </button> -->
+          
+
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3 sm:gap-4">
+              <img
+                src="../../../images/Avatarbrown.svg"
+                class="w-12 h-12 sm:w-14 sm:h-14 md:w-15 md:h-15 rounded-full object-cover"
+                alt="User Avatar"
+              />
+              <div>
+                <h2 class="font-semibold text-base sm:text-lg md:text-xl"><span id="usernames"></span></h2>
+                <p class="text-sm md:text-base text-gray-500">Welcome back to TaskHive 👋🏻</p>
+              </div>
+            </div>
+            
+            <!-------------------- Mobile Action Buttons ------------------------------>
+            <div class="flex items-center gap-2 sm:gap-3">
+              
+              
+              <!-- <button class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                <i class="fa-solid fa-search text-gray-600 text-lg"></i>
+              </button> -->
+
+              <button class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                <i class="fa-solid fa-bell text-gray-600 text-lg"></i>
+              </button>
+              
+              <button class="menuBtn p-2 hover:bg-gray-100 rounded-lg transition-colors">
+              <i class="fa-solid fa-bars text-xl sm:text-2xl md:text-3xl text-gray-700"></i>
+            </button>
+          
+              <!-- <button class="flex bg-[var(--color-base-blue)] p-2 sm:px-3 sm:py-2 rounded-lg text-white hover:bg-blue-600 transition-colors">
+                <i class="fa-solid fa-plus"></i>
+                <span class="hidden sm:inline ml-1 text-sm">Create Task</span>
+              </button> -->
+            </div>
+          </div>
+        </header>
+
+
+
+
+
+
+        <!-------------------------- Tasks Content ------------------------------->
+            <main class="p-6 flex-1 overflow-auto bg-gray-50">
+                <div class="mb-6">
+                    <h1 class="text-2xl font-semibold text-gray-900 mb-2">Tasks</h1>
+                    <div class="flex items-center gap-2 text-sm text-gray-600">
+                        <i class="fas fa-th text-[var(--color-base-blue)]"></i>
+                        Board view
+                    </div>
+                </div>
+
+                <!-- Kanban Board -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- To do Column -->
+                    <div class="bg-white rounded-lg border border-gray-200">
+                        <div class="p-4 border-b border-gray-200">
+                            <div class="flex items-center justify-between mb-2">
+                                <h3 class="font-medium text-gray-900">To-Do (<span id="todoCount">0</span>)</h3>
+                            <button class="addTaskBtn text-sm text-gray-500 hover:text-gray-700" data-status="To-Do">
+                                    <img src="../../../images/addsign.svg" class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor">
+                                Add new task
+                            </button>
+                            </div>
+
+                        </div>
+                        <div id="todoTasks" class="p-4 space-y-4 min-h-96">
+                            <!-- Empty state placeholder -->
+                            <div class="empty-task-placeholder border-2 border-dashed border-gray-200 rounded-lg p-4 text-center">
+                                <div class="flex items-center justify-end mb-2">
+                                    <button class="text-gray-300">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="mb-4">
+                                    <div class="flex items-center text-xs text-gray-400 mb-2">
+                                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                        </svg>
+                                        Status
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2 mb-2">
+                                        <div class="bg-gray-300 h-2 rounded-full" style="width: 0%"></div>
+                                    </div>
+                                    <!-- <div class="text-right text-xs text-gray-400">0/0</div> -->
+                                </div>
+                            <div class="flex justify-between">
+                                <span class="bg-gray-100 text-gray-400 text-xs px-2 py-1 rounded">D/M/Y</span>
+                    <div 
+                    class="inline-block text-xs text-gray-400">Assignee
+                        <svg class="inline-block right-3 w-4 h-4 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+
+
+                    <!-- In progress Column -->
+                    <div class="bg-white rounded-lg border border-gray-200">
+                        <div class="p-4 border-b border-gray-200">
+                            <div class="flex items-center justify-between mb-2">
+                                <h3 class="font-medium text-gray-900">In Progress (<span id="progressCount">0</span>)</h3>
+                                <!-- <button class="addTaskBtn text-sm text-gray-500 hover:text-gray-700" data-status="To-Do">
+                                    <img src="images/addsign.svg" class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor">
+                                Add new task
+                            </button>
+                                </button> -->
+                            </div>
+                            
+                        </div>
+                        <div id="progressTasks" class="p-4 space-y-4 min-h-96">
+                            <!-- Empty state placeholder -->
+                            <div class="empty-task-placeholder border-2 border-dashed border-gray-200 rounded-lg p-4 text-center">
+                                <div class="flex items-center justify-end mb-2">
+                                    <button class="text-gray-300">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="mb-4">
+                                    <div class="flex items-center text-xs text-gray-400 mb-2">
+                                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                        </svg>
+                                        Status
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2 mb-2">
+                                        <div class="bg-gray-300 h-2 rounded-full" style="width: 0%"></div>
+                                    </div>
+                                    <!-- <div class="text-right text-xs text-gray-400">0/0</div> -->
+                                </div>
+                            <div class="flex justify-between">
+                                <span class="bg-gray-100 text-gray-400 text-xs px-2 py-1 rounded">D/M/Y</span>
+                    <div 
+                    class="inline-block text-xs text-gray-400">Assignee
+                        <svg class="inline-block right-3 w-4 h-4 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+
+
+                    <!-- Done Column -->
+                    <div class="bg-white rounded-lg border border-gray-200">
+                        <div class="p-4 border-b border-gray-200">
+                            <div class="flex items-center justify-between mb-2">
+                                <h3 class="font-medium text-gray-900">Done (<span id="doneCount">0</span>)</h3>
+                                <!-- <button class="addTaskBtn text-sm text-gray-500 hover:text-gray-700" data-status="To-Do">
+                                    <img src="images/addsign.svg" class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor">
+                                Add new task
+                            </button> -->
+                            </div>
+                        </div>
+                        <div id="doneTasks" class="p-4 space-y-4 min-h-96">
+                            <!-- Empty state placeholder -->
+                            <div class="empty-task-placeholder border-2 border-dashed border-gray-200 rounded-lg p-4 text-center">
+                                <div class="flex items-center justify-end mb-2">
+                                    <button class="text-gray-300">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="mb-4">
+                                    <div class="flex items-center text-xs text-gray-400 mb-2">
+                                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                        </svg>
+                                        Status
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2 mb-2">
+                                        <div class="bg-gray-300 h-2 rounded-full" style="width: 0%"></div>
+                                    </div>
+                                    <!-- <div class="text-right text-xs text-gray-400">0/0</div> -->
+                                </div>
+                            <div class="flex justify-between">
+                                <span class="bg-gray-100 text-gray-400 text-xs px-2 py-1 rounded">D/M/Y</span>
+                    <div 
+                    class="inline-block text-xs text-gray-400">Assignee
+                        <svg class="inline-block right-3 w-4 h-4 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+
+    
+    
+    
+    <!------------------- Mobile Sidebar ---------------------------->
+    <div
+      id="mobileSidebar"
+      class="fixed inset-0 bg-[var(--color-neutral-0)] z-50 hidden flex-col p-6 overflow-y-auto"
+    >
+
+    <div class="flex justify-between items-center mb-8">
+        <div class="flex items-center gap-2">
+          <img src="../../../images/taskhivelogo.svg" class="w-7 h-7" alt="" />
+          <h2 class="text-2xl sm:text-2xl font-bold text-[var(--color-dark-blue)]">
+            TaskHive
+          </h2>
+        </div>
+        
+      
+      <div>
+
+        <!-- <button class="bg-[var(--color-base-blue)] p-2 sm:px-3 sm:py-2 rounded-lg text-white hover:bg-blue-600 transition-colors">
+                <i class="fa-solid fa-plus"></i>
+                <span class="sm:inline ml-1 text-sm">Create Task</span>
+              </button> -->
+
+              
+              <button class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                <i class="fa-solid fa-search text-gray-600 text-lg"></i>
+              </button>
+
+
+        <button id="closeBtn" class="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+          <i class="fa-solid fa-xmark text-2xl sm:text-xl text-gray-700"></i>
+        </button>
+      </div>
+      </div>
+
+      <nav class="flex flex-col gap-4 sm:gap-6">
+        <a href="../dashboard/dashboard.html" class="flex items-center text-lg sm:text-xl py-3 px-4 rounded-lg hover:bg-gray-200 transition-colors">
+          <i class="fa-solid fa-chart-line mr-4 text-[var(--color-base-blue)]"></i>
+          Dashboard
+        </a>
+        <a href="../team/team.html" class="flex items-center text-lg sm:text-xl py-3 px-4 rounded-lg hover:bg-gray-200 transition-colors">
+          <i class="fa-solid fa-users mr-4 text-[var(--color-base-blue)]"></i>
+          Teams
+        </a>
+        <a href="../project/project.html" class="flex items-center text-lg sm:text-xl py-3 px-4 rounded-lg hover:bg-gray-200 transition-colors">
+          <i class="fa-solid fa-project-diagram mr-4 text-[var(--color-base-blue)]"></i>
+          Projects
+        </a>
+        <a href="../task/task.html" class="flex items-center text-lg sm:text-xl py-3 px-4 rounded-lg hover:bg-gray-200 transition-colors">
+          <i class="fa-solid fa-tasks mr-4 text-[var(--color-base-blue)]"></i>
+          Tasks
+        </a>
+        <a href="../others/notification.html" class="flex items-center text-lg sm:text-xl py-3 px-4 rounded-lg hover:bg-gray-200 transition-colors">
+          <i class="fa-solid fa-bell mr-4 text-[var(--color-base-blue)]"></i>
+          Notifications
+        </a>
+        <a href="../setting/settings.html" class="flex items-center text-lg sm:text-xl py-3 px-4 rounded-lg hover:bg-gray-200 transition-colors">
+          <i class="fa-solid fa-cog mr-4 text-[var(--color-base-blue)]"></i>
+          Settings
+        </a>
+        <a href="#" class="signOutBtn flex items-center text-lg sm:text-xl py-3 px-4 rounded-lg hover:bg-gray-200 transition-colors">
+          <i class="fa-solid fa-sign-out-alt mr-4 text-red-600"></i>
+          Sign Out
+        </a>
+      </nav>
+    </div>
+
+    
+ <!-- Signout Modal -->
+    <div
+      id="signOutModal"
+      class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 p-4"
+    >
+      <div class="bg-white p-6 sm:p-8 rounded-lg shadow-xl w-full max-w-sm sm:max-w-md text-center transform transition-all">
+        <div class="mb-6">
+          <i class="hgi hgi-stroke hgi-logout-circle-01 text-4xl sm:text-5xl text-red-600"></i>
+        </div>
+        <h3 class="text-lg sm:text-xl font-semibold text-gray-800 mb-2">Sign Out</h3>
+        <p class="text-sm sm:text-base text-gray-600 mb-8">
+          Are you sure you want to sign out of your account?
+        </p>
+        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+          <button
+            id="cancelSignout"
+            class="px-6 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors font-medium"
+          >
+            Cancel
+          </button>
+          <button
+            id="confirmSignOut"
+            class="px-6 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition-colors font-medium"
+          >
+            Sign Out
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Team Required Modal -->
+    <div id="teamRequiredModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-6 w-full max-w-md mx-4 text-center">
+            <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-blue-100 flex items-center justify-center">
+                <i class="fa-solid fa-users text-blue-600 text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">Team Required</h3>
+            <p class="text-sm text-gray-600 mb-6">
+                You need to create a team before you can create tasks. Teams help you organize and collaborate with your members.
+            </p>
+            <div class="flex gap-3">
+                <button id="cancelTeamRequired" class="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50">Cancel</button>
+                <button id="goToCreateTeam" class="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-semibold">Create Team</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project Required Modal -->
+    <div id="projectRequiredModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-6 w-full max-w-md mx-4 text-center">
+            <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-blue-100 flex items-center justify-center">
+                <i class="fa-solid fa-project-diagram text-blue-600 text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-dark mb-2">Project Required</h3>
+            <p class="text-sm text-gray-600 mb-6">
+                You need to create a project before you can create tasks. Projects help you organize tasks into manageable groups.
+            </p>
+            <div class="flex gap-3">
+                <button id="cancelProjectRequired" class="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50">Cancel</button>
+                <button id="goToCreateProject" class="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-semibold">Create Project</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Team/Project Required Modal -->
+    <div id="teamProjectRequiredModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-6 w-full max-w-md mx-4 text-center">
+            <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-blue-100 flex items-center justify-center">
+                <i class="fa-solid fa-users text-blue-600 text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">Team & Project Required</h3>
+            <p class="text-gray-600 mb-6">
+                You need to create a team and project before you can create tasks. Would you like to create a team now?
+            </p>
+            <div class="flex gap-3">
+                <button id="cancelTeamProjectRequired" class="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50">Cancel</button>
+                <button id="goToTeamsPage" class="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-semibold">Create Team</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- New/Edit Task Modal -->
+    <div id="taskModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-6 w-full max-w-md mx-4">
+            <div class="flex items-center justify-between mb-6">
+                <h2 id="modalTitle" class="text-xl font-semibold text-gray-900">New Task</h2>
+                <button id="closeModal" class="text-gray-400 hover:text-gray-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <form id="taskForm" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Title</label>
+                    <input type="text" id="taskTitle" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Enter task title">
+                    <div id="titleError" class="text-red-500 text-xs mt-1 hidden">Title is required</div>
+                </div>
+
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                    <textarea id="taskDescription" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Enter task description"></textarea>
+                </div>
+                
+                <div>
+
+                    <label for="taskDueDate" class="block text-sm font-medium text-gray-700 mb-1">Due Date</label>
+                    <div class="relative">
+                        <input  name="due_date"
+                                min="" type="date" id="taskDueDate" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                        <svg class="absolute right-3 top-2.5 w-5 h-5 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <p id="dueDateError" class="text-red-500 text-xs mt-1 hidden">Please select a due date</p>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Assign to</label>
+                    <div class="relative">
+                        <select id="taskAssignee" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent appearance-none">
+                            <option value="">Select team member</option>
+                            <option value="Vincent A.">Vincent A.</option>
+                            <option value="Esther E.">Esther E.</option>
+                            <option value="Mercy O.">Mercy O.</option>
+                            <option value="Allen E.">Allen E.</option>
+                            <option value="Samuel A.">Samuel A.</option>
+                        </select>
+                        <svg class="absolute right-3 top-2.5 w-5 h-5 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                    <p id="assigneeError" class="text-red-500 text-xs mt-1 hidden">Please select an assignee</p>
+                </div>
+
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                    <div class="relative">
+                        <select id="taskStatus" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent appearance-none">
+                            <option value="To-Do">To-Do</option>
+                            <option value="In-Progress">In-Progress</option>
+                            <option value="Completed">Completed</option>
+                        </select>
+                        <svg class="absolute right-3 top-2.5 w-5 h-5 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                    <p id="statusError" class="text-red-500 text-xs mt-1 hidden">Please select a status</p>
+                </div>
+
+
+                <div class="flex gap-3 pt-4">
+                    <button type="button" id="cancelBtn" class="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50">Cancel</button>
+                    <button type="submit" id="submitBtn" class="flex-1 px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary">Create Task</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Context Menu -->
+    <div id="contextMenu" class="fixed bg-white border border-gray-200 rounded-lg shadow-lg py-2 hidden z-50">
+        <button id="editTask" class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+            </svg>
+            Edit task
+        </button>
+        <button id="copyTask" class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+            </svg>
+            Copy task
+        </button>
+        <button id="deleteTask" class="w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50 flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+            </svg>
+            Delete
+        </button>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-6 w-full max-w-sm mx-4 text-center">
+        <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-red-100 flex items-center justify-center">
+            <i class="fa-solid fa-trash text-red-600 text-xl"></i>
+        </div>
+            <h3 class="text-lg font-medium text-gray-900 mb-2">Are you sure you want to delete this Task?</h3>
+            <div class="flex gap-3 mt-6">
+                <button id="cancelDelete" class="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50">Cancel</button>
+                <button id="confirmDelete" class="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-6 w-full max-w-sm mx-4 text-center">
+            <div class="w-16 h-16 mx-auto mb-4 bg-green-100 rounded-full flex items-center justify-center">
+                <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+            </div>
+            <p id="successMessage" class="text-lg mb-6">Your new task is ready to roll</p>
+            <button id="continueBtn" class="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg" onclick="window.location.reload();">Continue</button>
+        </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div id="errorModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-6 w-full max-w-sm mx-4 text-center">
+            <div class="w-16 h-16 mx-auto mb-4 bg-red-100 rounded-full flex items-center justify-center">
+                <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </div>
+            <p  id="errorMessage" class="modal-message text-lg text-gray-900 mb-6">An error occurred</p>
+            <button onclick="document.getElementById('errorModal').classList.add('hidden');document.getElementById('errorModal').classList.remove('flex');window.location.reload();" class="w-full px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">Close</button>
+        </div>
+    </div>
+
+    <script src="../../js/task/task.js"></script>
+</body>
+</html>

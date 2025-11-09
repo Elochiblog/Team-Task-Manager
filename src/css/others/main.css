@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+:root{
+    /*--------------------blue-------------------------*/
+    --color-darker-blue:#162664;
+    --color-dark-blue: #253EA7;
+    --color-base-blue: #375DFB;
+    --color-light-blue: #C2D6FF;
+    --color-lighter-blue: #EBF1FF;
+    /*------------------green----------------------*/
+    --color-darker-green:#176448;
+    --color-dark-green: #2D9F75;
+    --color-base-green: #38C793;
+    --color-icon-green: #39B54A;
+    --color-light-green: #CBF5EF; 
+    --color-lighter-green: #EFFAF6;
+    /*----------------------------yellow----------*/
+    --color-darker-yellow:#693D11;
+    --color-dark-yellow: #B47818;
+    --color-base-yellow: #F2AE40;
+    --color-light-yellow: #FBDFB1;
+    --color-lighter-yellow: #FEF7EC;
+    /*---------------------------red-----------------*/
+    --color-darker-red:#710E21;
+    --color-dark-red: #AF1D38;
+    --color-base-red: #DF1C41;
+    --color-icon-red: #FF0000;
+    --color-light-red: #F8C9D2;
+    --color-lighter-red: #FDEDF0;
+    /*--------------------neutral--------------------*/
+    --color-neutral-900:#0A0D14;
+    --color-neutral-800:#161922;
+    --color-neutral-700:#20232D;
+    --color-neutral-600:#20232D;
+    --color-neutral-500:#525866;
+    --color-neutral-400:#868C98;
+    --color-neutral-300:#CDD0D5;
+    --color-neutral-200:#CDD0D5;
+    --color-neutral-100:#F6F8FA;
+    --color-neutral-0:#FFFFFF;
+}
+#search-bar {
+  transition: all 0.3s ease;
+}
+

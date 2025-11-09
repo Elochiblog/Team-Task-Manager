@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - TaskHive</title>
+    <link
+			rel="shortcut icon"
+			href="../../../images/taskhivelogo.svg"
+			type="image/x-icon"
+		/>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#375DFB',
+                        secondary: '#3985f9'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-white">
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <div class="flex items-center justify-center">
+                            <a href="/task-manager-fe/index.html">
+                            <img src="../../../Assets/logo.svg" alt="taskhive-logo">
+                        </div>
+                        <span class="ml-2 text-2xl font-bold text-primary">TaskHive</span></a>
+                    </div>
+                </div>
+                
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="about.html" class="text-gray-600 hover:text-primary px-3 py-2 text-sm font-medium">About</a>
+                        <a href="contact.html" class="text-gray-600 hover:text-primary px-3 py-2 text-sm font-medium">Contact</a>
+                        <a href="features.html" class="text-gray-600 hover:text-primary px-3 py-2 text-sm font-medium">Features</a>
+                    </div>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <button> <a href="../auth/login.html" class="border border-gray-300 rounded-lg hover:border-primary hover:text-primary px-3 py-2 text-sm font-medium">Login</a></button>
+                    <button> <a href="../auth/signup.html" class="bg-primary hover:bg-secondary text-white px-4 py-3 rounded-lg text-sm font-medium transition-colors">Sign Up</a></button>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-500 hover:text-gray-600 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile menu -->
+            <div id="mobile-menu" class="md:hidden hidden">
+                <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t">
+                    <a href="about.html" class="text-gray-600 hover:text-primary block px-3 py-2 text-base font-medium">About</a>
+                    <a href="contact.html" class="text-gray-600 hover:text-primary block px-3 py-2 text-base font-medium">Contact</a>
+                    <a href="features.html" class="text-gray-600 hover:text-primary block px-3 py-2 text-base font-medium">Features</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Terms of Service Content -->
+    <main class="py-20 bg-gray-50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white rounded-lg shadow-lg p-8 md:p-12">
+                <h1 class="text-4xl font-bold text-primary mb-8">Terms of Service</h1>
+                <p class="text-gray-600 mb-8">Last updated: September 2025</p>
+                
+                <div class="prose prose-lg max-w-none">
+                    <section class="mb-8">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-4">1. Acceptance of Terms</h2>
+                        <p class="text-gray-600 mb-4">
+                            By accessing and using TaskHive ("Service"), you accept and agree to be bound by the terms 
+                            and provision of this agreement. If you do not agree to abide by the above, please do not use this service.
+                        </p>
+                    </section>
+
+                    <section class="mb-8">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-4">2. Description of Service</h2>
+                        <p class="text-gray-600 mb-4">
+                            TaskHive is a web-based task management and collaboration platform that allows users to:
+                        </p>
+                        <ul class="list-disc pl-6 text-gray-600 space-y-2">
+                            <li>Create and manage projects and tasks</li>
+                            <li>Collaborate with team members</li>
+                            <li>Track progress and generate reports</li>
+                            <li>Share files and communicate within projects</li>
+                            <li>Access integrations with third-party tools</li>
+                        </ul>
+                    </section>
+
+                    <section class="mb-8">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-4">3. User Accounts</h2>
+                        <p class="text-gray-600 mb-4">
+                            To access certain features of the Service, you must register for an account. You agree to:
+                        </p>
+                        <ul class="list-disc pl-6 text-gray-600 space-y-2">
+                            <li>Provide accurate and complete registration information</li>
+                            <li>Maintain the security of your password and account</li>
+                            <li>Notify us immediately of any unauthorized use</li>
+                            <li>Accept responsibility for all activities under your account</li>
+                            <li>Use the Service only for lawful purposes</li>
+                        </ul>
+                    </section>
+
+                    <section class="mb-8">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-4">4. Acceptable Use</h2>
+                        <p class="text-gray-600 mb-4">You agree not to use the Service to:</p>
+                        <ul class="list-disc pl-6 text-gray-600 space-y-2">
+                            <li>Upload or transmit harmful, offensive, or illegal content</li>
+                            <li>Violate any applicable laws or regulations</li>
+                            <li>Infringe on intellectual property rights</li>
+                            <li>Attempt to gain unauthorized access to our systems</li>
+                            <li>Interfere with or disrupt the Service</li>
+                            <li>Use the Service for commercial purposes without authorization</li>
+                        </ul>
+                    </section>
+
+                    <section class="mb-8">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-4">5. Data and Privacy</h2>
+                        <p class="text-gray-600 mb-4">
+                            Your privacy is important to us. Our Privacy Policy explains how we collect, use, and protect 
+                            your information when you use our Service. By using TaskHive, you agree to the collection 
+                            and use of information in accordance with our Privacy Policy.
+                        </p>
+                    </section>
+
+                    <section class="mb-8">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-4">6. Intellectual Property</h2>
+                        <p class="text-gray-600 mb-4">
+                            The Service and its original content, features, and functionality are owned by TaskHive and are 
+                            protected by international copyright, trademark, patent, trade secret, and other intellectual 
+                            property laws. You retain ownership of content you create using our Service.
+                        </p>
+                    </section>
+
+                    <section class="mb-8">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-4">7. Subscription and Payment</h2>
+                        <p class="text-gray-600 mb-4">
+                            Some features of the Service may require payment. By subscribing to a paid plan, you agree to:
+                        </p>
+                        <ul class="list-disc pl-6 text-gray-600 space-y-2">
+                            <li>Pay all fees associated with your subscription</li>
+                            <li>Provide accurate billing information</li>
+                            <li>Accept automatic renewal unless cancelled</li>
+                            <li>Understand that refunds are subject to our refund policy</li>
+                        </ul>
+                    </section>
+
+                    <section class="mb-8">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-4">8. Service Availability</h2>
+                        <p class="text-gray-600 mb-4">
+                            We strive to maintain high availability of our Service, but we do not guarantee uninterrupted access. 
+                            We may temporarily suspend the Service for maintenance, updates, or other operational reasons.
+                        </p>
+                    </section>
+
+                    <section class="mb-8">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-4">9. Limitation of Liability</h2>
+                        <p class="text-gray-600 mb-4">
+                            TaskHive shall not be liable for any indirect, incidental, special, consequential, or punitive damages, 
+                            including without limitation, loss of profits, data, use, goodwill, or other intangible losses, 
+                            resulting from your use of the Service.
+                        </p>
+                    </section>
+
+                    <section class="mb-8">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-4">10. Termination</h2>
+                        <p class="text-gray-600 mb-4">
+                            We may terminate or suspend your account and access to the Service immediately, without prior notice, 
+                            for conduct that we believe violates these Terms or is harmful to other users, us, or third parties.
+                        </p>
+                    </section>
+
+                    <section class="mb-8">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-4">11. Changes to Terms</h2>
+                        <p class="text-gray-600 mb-4">
+                            We reserve the right to modify these Terms at any time. We will notify users of any material changes 
+                            by posting the new Terms on this page and updating the "Last updated" date.
+                        </p>
+                    </section>
+
+                    <section class="mb-8">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-4">12. Contact Information</h2>
+                        <p class="text-gray-600 mb-4">
+                            If you have any questions about these Terms of Service, please contact us at:
+                        </p>
+                        <div class="bg-gray-100 p-4 rounded-lg">
+                            <p class="text-gray-600">
+                                Email: admin@taskhive.com<br>
+                                Address: Lagos State, Nigeria<br>
+                                Phone: +234 816-858-1064
+                            </p>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+
+<!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Restructured footer into 2 main sections -->
+            <div class="grid lg:grid-cols-2 gap-12 items-start">
+                <!-- Section 1: Logo and Tagline -->
+                <div>
+                    <div class="flex items-center mb-4">
+                        <div class="flex items-center justify-center">
+                            <a href="landingpage.html">
+                                <img src="../../../Assets/logo.svg" alt="taskhive-logo">
+                        </div>
+                        <span class="ml-2 text-xl font-bold">TaskHive</span></a>
+                    </div>
+                    <p class="text-gray-400 text-lg max-w-md">
+                        The one stop app for work! Stay organized, prioritize, and collaborate efficiently with TaskHive.
+                    </p>
+                </div>
+                
+                <!-- Section 2: Menu Pages and Social Media -->
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Menu Pages -->
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">Company</h3>
+                        <ul class="space-y-3">
+                            <li><a href="features.html" class="text-gray-400 hover:text-white transition-colors">Features</a></li>
+                            <li><a href="privacy.html" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
+                            <li><a href="terms.html" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Social Media -->
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">Connect</h3>
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                                <span class="sr-only">LinkedIn</span>
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                                </svg>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                                <span class="sr-only">Twitter</span>
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                                </svg>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                                <span class="sr-only">Facebook</span>
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-12 pt-8 text-center">
+                <p class="text-gray-400">&copy; 2025 TaskHive. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

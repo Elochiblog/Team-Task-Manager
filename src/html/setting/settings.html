@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Settings - TaskHive</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="https://use.hugeicons.com/font/icons.css" />
+    <link rel="stylesheet" href="../../css/others/main.css" />
+    <link
+      rel="shortcut icon"
+      href="../../../images/taskhivelogo.svg"
+      type="image/x-icon"
+    />
+
+    <style>
+      :root {
+        --color-dark-blue: #1e3a8a;
+        --color-base-blue: #375dfb;
+        --color-neutral-0: #ffffff;
+      }
+
+      .menu-item {
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .menu-item:hover {
+        background-color: var(--color-base-blue);
+        color: var(--color-neutral-0);
+      }
+
+      .menu-item:hover .icon-black {
+        display: none;
+      }
+
+      .menu-item:hover .icon-white {
+        display: inline-block !important;
+      }
+
+      .search-bar {
+        border: 1px solid #e5e7eb;
+        transition: all 0.3s ease;
+      }
+
+      .search-bar:focus-within {
+        border-color: var(--color-base-blue);
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+      }
+
+      #mobileSidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+      }
+
+      #mobileSidebar:not(.hidden) {
+        transform: translateX(0);
+      }
+
+      @media (max-width: 640px) {
+        .menu-item {
+          padding: 0.75rem;
+          margin-bottom: 0.5rem;
+          border-radius: 0.5rem;
+        }
+      }
+
+      @media (min-width: 768px) and (max-width: 1279px) {
+        .tablet-layout {
+          display: flex;
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-white min-h-screen">
+    <!---------------------- Desktop Layout ------------------------->
+    <div class="xl:flex xl:h-screen" id="desktop-nav">
+      <!-- Sidebar -->
+      <aside
+        id="sidebar"
+        class="hidden xl:block w-64 bg-white shadow-lg p-4 fixed xl:relative h-full xl:h-auto z-40"
+      >
+        <div class="logo flex items-center gap-2 mb-6 ps-2">
+          <img
+            src="../../../images/taskhivelogo.svg"
+            alt="TaskHive logo"
+            class="w-7 h-7"
+          />
+          <h1 class="text-2xl font-bold text-[var(--color-dark-blue)]">
+            TaskHive
+          </h1>
+        </div>
+        <nav class="flex flex-col gap-5">
+          <div
+            class="menu-item xl:w-44 xl:px-3 xl:py-2 xl:rounded-xl flex items-center gap-4"
+          >
+            <img
+              src="../../../images/category bold-dark.svg"
+              class="icon-black w-5 h-5"
+              alt=""
+            />
+            <img
+              src="../../../images/category bold-white.svg"
+              class="icon-white hidden w-5 h-5"
+              alt=""
+            />
+            <a
+              href="../dashboard/dashboard.html"
+              class="flex items-center text-lg font-awesome"
+            >
+              Dashboard</a
+            >
+          </div>
+
+          <div
+            class="menu-item xl:w-44 xl:px-3 xl:py-2 xl:rounded-xl flex items-center gap-4"
+          >
+            <img
+              src="../../../images/team-icon-dark.svg"
+              class="icon-black w-5 h-5"
+              alt=""
+            />
+            <img
+              src="../../../images/team-icon-white.svg"
+              class="icon-white hidden w-5 h-5"
+              alt=""
+            />
+            <a
+              href="../team/team.html"
+              class="flex items-center text-lg font-awesome"
+              >Teams</a
+            >
+          </div>
+
+          <div
+            class="menu-item xl:w-44 xl:px-3 xl:py-2 xl:rounded-xl flex items-center gap-4"
+          >
+            <i class="fa-solid fa-project-diagram icon-black text-lg"></i>
+            <i
+              class="fa-solid fa-project-diagram icon-white text-[var(--color-neutral-0)] hidden text-lg"
+            ></i>
+
+            <a
+              href="../project/project.html"
+              class="flex items-center text-lg font-awesome"
+              >Projects</a
+            >
+          </div>
+
+          <div
+            class="menu-item xl:w-44 xl:px-3 xl:py-2 xl:rounded-xl flex items-center gap-4"
+          >
+            <img
+              src="../../../images/Task-Line-dark.svg"
+              class="icon-black w-5 h-5"
+              alt=""
+            />
+            <img
+              src="../../../images/Taskline-white.svg"
+              class="icon-white hidden w-5 h-5"
+              alt=""
+            />
+            <a
+              href="../task/task.html"
+              class="flex items-center text-lg font-awesome"
+              >Tasks</a
+            >
+          </div>
+
+          <div
+            class="menu-item xl:w-44 xl:px-3 xl:py-2 xl:rounded-xl flex items-center gap-4"
+          >
+            <i
+              class="hgi hgi-stroke hgi-notification-01 icon-black text-lg"
+            ></i>
+            <i
+              class="hgi hgi-stroke hgi-notification-01 icon-white text-[var(--color-neutral-0)] hidden text-lg"
+            ></i>
+            <a
+              href="../others/notification.html"
+              class="flex items-center text-lg font-awesome"
+              >Notifications</a
+            >
+          </div>
+
+          <div
+            class="menu-item xl:w-44 xl:px-3 xl:py-2 xl:rounded-xl flex items-center gap-4 xl:ps-2 bg-[var(--color-base-blue)]"
+          >
+            <i
+              class="hgi hgi-stroke hgi-settings-02 icon-black text-lg hidden"
+            ></i>
+            <i
+              class="hgi hgi-stroke hgi-settings-02 icon-white text-[var(--color-neutral-0)] text-lg"
+            ></i>
+            <a
+              href="../setting/settings.html"
+              class="flex items-center text-lg font-awesome text-[var(--color-neutral-0)]"
+              >Settings</a
+            >
+          </div>
+
+          <div
+            class="menu-item xl:w-44 xl:px-3 xl:py-2 xl:rounded-xl flex items-center gap-4"
+          >
+            <i
+              class="hgi hgi-stroke hgi-logout-circle-02 icon-black text-lg"
+            ></i>
+            <i
+              class="hgi hgi-stroke hgi-logout-circle-02 icon-white text-[var(--color-neutral-0)] hidden text-lg"
+            ></i>
+            <a
+              href="#"
+              class="signOutBtn flex items-center text-lg font-awesome"
+              >Sign Out</a
+            >
+          </div>
+        </nav>
+      </aside>
+
+      <!------------------- Main Content ---------------------->
+      <div class="flex-1 flex flex-col xl:ml-0">
+        <!-- Desktop Header -->
+        <header
+          class="h-20 hidden xl:flex items-center justify-between px-6 bg-white shadow-sm sticky top-0 z-40"
+        >
+          <div class="flex items-center gap-4">
+            <img
+              src="../../../images/Avatarbrown.svg"
+              class="w-12 h-12 rounded-full object-cover"
+              alt="User Avatar"
+            />
+
+            <div>
+              <h2 class="font-semibold text-4xl md:text-xl">
+                <span id="username"></span>
+              </h2>
+              <p class="text-sm md:text-base text-gray-600 hidden lg:block">
+                Welcome back to TaskHive 👋🏻
+              </p>
+            </div>
+          </div>
+        </header>
+
+        <!----------------------- Mobile / Tablet Header --------------------------->
+        <header class="p-2 xl:hidden bg-white shadow-sm sticky top-0 z-40">
+          <div class="flex justify-between items-center mb-2"></div>
+
+          <!-- <div class="flex items-center gap-3">                
+              <img src="images/ta" alt="TaskHive logo" class="w-10 h-10 sm:w-12 sm:h-12" />
+              <h1 class="text-xl sm:text-2xl md:text-3xl font-bold text-[var(--color-dark-blue)]">
+                TaskHive
+              </h1>
+            </div> -->
+
+          <!-- <button class="menuBtn p-2 hover:bg-gray-100 rounded-lg transition-colors">
+              <i class="fa-solid fa-bars text-xl sm:text-2xl md:text-3xl text-gray-700"></i>
+            </button>
+          </div> -->
+
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3 sm:gap-4">
+              <img
+                src="../../../images/Avatarbrown.svg"
+                class="w-12 h-12 sm:w-14 sm:h-14 md:w-15 md:h-15 rounded-full object-cover"
+                alt="User Avatar"
+              />
+              <div>
+                <h2 class="font-semibold text-base sm:text-lg md:text-xl">
+                  <span id="usernames"></span>
+                </h2>
+                <p class="text-sm md:text-base text-gray-500">
+                  Welcome back to TaskHive 👋🏻
+                </p>
+              </div>
+            </div>
+
+            <!-- Mobile Action Buttons -->
+            <div class="flex items-center gap-2 sm:gap-3">
+              <!-- <button class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                <i class="fa-solid fa-search text-gray-600 text-lg"></i>
+              </button> -->
+              <button
+                class="p-2 hover:bg-gray-100 rounded-full transition-colors"
+              >
+                <i class="fa-solid fa-bell text-gray-600 text-lg"></i>
+              </button>
+
+              <button
+                class="menuBtn p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              >
+                <i
+                  class="fa-solid fa-bars text-xl sm:text-2xl md:text-3xl text-gray-700"
+                ></i>
+              </button>
+
+              <!-- <button class="flex bg-[var(--color-base-blue)] p-2 sm:px-3 sm:py-2 rounded-lg text-white hover:bg-blue-600 transition-colors">
+                <i class="fa-solid fa-plus"></i>
+                <span class="hidden sm:inline ml-1 text-sm">Create Task</span>
+              </button> -->
+            </div>
+          </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main
+          id="setting"
+          class="xl:p-10 overflow-auto flex-1 p-4 sm:p-6 bg-gray-50"
+        >
+          <div class="max-w-7xl mx-auto">
+            <h2 class="font-semibold text-2xl py-2">Settings</h2>
+            <p class="text-gray-500">Edit and update your profile</p>
+            <div class="mb-7"></div>
+
+            <!-- Activity
+            <div class="flex flex-wrap gap-4 text-gray-600">
+              <p>Today you have</p>
+              <p><i class="hgi hgi-stroke hgi-calendar-04"></i> 0 <b>events</b></p>
+              <p><i class="hgi hgi-stroke hgi-calendar-04"></i> 0 <b>tasks</b></p>
+              <p><i class="hgi hgi-stroke hgi-calendar-04"></i> 0 <b>inbox</b></p>
+            </div> -->
+
+            <!-- Info Section -->
+            <!-- <div class="mb-5">
+              <h2 class="font-medium text-xl mt-2">Personal info</h2>
+              <p class="text-gray-500">Edit and update your profile</p>
+            </div> -->
+          </div>
+
+          <!-- Content Layout -->
+          <div class="flex flex-col xl:flex-row gap-10">
+            <!-- Sidebar Tabs -->
+            <div
+              class="bg-white flex flex-col w-full xl:w-1/4 border-r pr-4 border border-gray-100 p-7"
+            >
+              <a
+                href="#"
+                id="tab-personal"
+                class="py-2 font-medium text-blue-600"
+                >Personal info</a
+              >
+              <a href="#" id="tab-password" class="py-2 text-gray-700"
+                >Change password</a
+              >
+              <!-- <a
+                href="../others/notification.html"
+                id="tab-notification"
+                class="py-2 text-gray-700"
+                >Notifications</a
+              > -->
+            </div>
+
+            <!-- Form Section -->
+            <div class="flex-1">
+              <div
+                class="bg-white flex items-center gap-4 shadow-sm rounded-[8px] p-5 border border-gray-100"
+              >
+                <img
+                  src="../../../images/Avatarbrown.svg"
+                  id="avatarPreview"
+                  class="w-[7rem] md:w-12"
+                  alt="User Avatar"
+                />
+                <div class="flex items-center justify-between w-full">
+                  <div>
+                    <h2 class="font-semibold"><span id="name"></span></h2>
+                    <p><span id="profile-email"></span></p>
+                  </div>
+                  <button
+                    id="avatarEditBtn"
+                    class="border border-blue-600 px-3 py-1 rounded-3xl text-blue-600 mt-3 md:mt-0"
+                  >
+                    Edit <i class="hgi hgi-stroke text-sm hgi-edit-02"></i>
+                  </button>
+                  <input
+                    id="avatarInput"
+                    type="file"
+                    accept="image/*"
+                    class="hidden"
+                  />
+                </div>
+              </div>
+
+              <!-- Avatar Modal -->
+              <div
+                id="avatarModal"
+                class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+              >
+                <div
+                  class="bg-white p-6 rounded-lg shadow-lg w-[22rem] relative"
+                >
+                  <!-- Modal Header -->
+                  <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-semibold">Upload Picture</h3>
+                    <button
+                      id="closeAvatarModal"
+                      class="text-gray-600 hover:text-black text-xl"
+                    >
+                      &times;
+                    </button>
+                  </div>
+
+                  <!-- File Upload Area -->
+                  <label
+                    for="avatarInput"
+                    class="block border border-dashed border-gray-400 rounded-lg cursor-pointer"
+                  >
+                    <img
+                      id="avatarPreviewModal"
+                      src="/placeholder.svg"
+                      alt=""
+                      class="hidden w-full h-40 object-cover rounded-lg"
+                    />
+                    <div
+                      id="uploadPlaceholder"
+                      class="flex flex-col items-center justify-center h-40 text-gray-500"
+                    >
+                      <i class="hgi hgi-stroke hgi-upload-02 text-3xl mb-2"></i>
+                      <span>Select A File</span>
+                    </div>
+                  </label>
+                  <input
+                    type="file"
+                    id="avatarInput"
+                    accept="image/*"
+                    class="hidden"
+                  />
+
+                  <!-- Updated button with loading spinner -->
+                  <button
+                    id="updateAvatarBtn"
+                    class="mt-6 w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 flex items-center justify-center gap-2"
+                  >
+                    <span id="updateAvatarButtonText">Update Image</span>
+                    <div
+                      id="updateAvatarSpinner"
+                      class="hidden w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"
+                    ></div>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Personal Info Form -->
+              <div
+                id="personal-info"
+                class="tab-content bg-white p-6 md:p-5 rounded-lg shadow-md mt-10 border border-gray-100"
+              >
+                <div
+                  class="flex flex-col md:flex-row justify-between items-center mb-6"
+                >
+                  <h3 class="text-lg md:text-xl font-medium text-gray-800">
+                    Personal Information
+                  </h3>
+                  <button
+                    id="editBtn"
+                    class="border border-blue-600 px-3 py-1 m rounded-3xl text-blue-600 mt-3 md:mt-0"
+                  >
+                    Edit <i class="hgi hgi-stroke text-sm hgi-edit-02"></i>
+                  </button>
+                </div>
+
+                <!-- Form Fields -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label class="block text-sm font-bold text-black mb-2"
+                      >First Name</label
+                    >
+                    <input
+                      id="firstName"
+                      type="text"
+                      class="w-full hover:rounded-md py-3 border-b focus:outline-none focus:border-blue-500"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label class="block text-sm font-bold text-black mb-2"
+                      >Last Name</label
+                    >
+                    <input
+                      id="lastName"
+                      type="text"
+                      class="w-full hover:rounded-md py-3 border-b focus:outline-none focus:border-blue-500"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label class="block text-sm font-bold text-black mb-2"
+                      >Email</label
+                    >
+                    <input
+                      id="email"
+                      type="email"
+                      value=""
+                      class="w-full hover:rounded-md py-3 border-b focus:outline-none focus:border-blue-500"
+                    />
+                  </div>
+
+                  <div>
+                    <label class="block text-sm font-bold text-black mb-2"
+                      >Phone</label
+                    >
+                    <input
+                      id="phone"
+                      type="tel"
+                      value=""
+                      class="w-full hover:rounded-md py-3 border-b focus:outline-none focus:border-blue-500"
+                    />
+                  </div>
+
+                  <div>
+                    <label class="block text-sm font-bold text-black mb-2"
+                      >Gender</label
+                    >
+                    <select
+                      class="w-full hover:rounded-md shadow-sm py-3 border-b focus:outline-none focus:border-blue-500"
+                    ></select>
+                  </div>
+
+                  <div>
+                    <label class="block text-sm font-bold text-black mb-2"
+                      >Role</label
+                    >
+                    <select
+                      class="w-full rounded-md shadow-sm py-3 border-b focus:outline-none focus:border-blue-500"
+                    ></select>
+                  </div>
+                </div>
+
+                <!-- Updated buttons with loading spinner -->
+                <div
+                  class="flex flex-col md:flex-row justify-center mt-8 gap-4"
+                >
+                  <button
+                    id="cancelBtn"
+                    class="hidden px-7 py-2 rounded-md border-2 border-blue-600 text-blue-600 hover:rounded-md w-full md:w-auto hover:bg-gray-200"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    id="saveBtn"
+                    class="hidden px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 w-full md:w-auto flex items-center justify-center gap-2"
+                  >
+                    <span id="saveButtonText">Save Changes</span>
+                    <div
+                      id="saveSpinner"
+                      class="hidden w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"
+                    ></div>
+                  </button>
+                </div>
+              </div>
+
+              <!-- change password  -->
+
+              <form
+                id="password-form"
+                class="tab-content bg-white p-6 md:p-8 rounded-lg shadow-md mt-10 border border-gray-100 hidden"
+              >
+                <div class="space-y-6">
+                  <!-- Current Password -->
+                  <div>
+                    <label
+                      for="current-password"
+                      class="block text-sm font-bold text-black mb-2"
+                    >
+                      Current Password*
+                    </label>
+                    <input
+                      type="password"
+                      id="current-password"
+                      name="current-password"
+                      placeholder="Enter current password"
+                      class="w-full py-3 border-b border-gray-300 rounded-lg focus:border-blue-500 outline-none transition-all"
+                      required
+                    />
+                  </div>
+
+                  <!-- New Password -->
+                  <div>
+                    <label
+                      for="new-password"
+                      class="block text-sm font-bold text-black mb-2"
+                    >
+                      New Password*
+                    </label>
+                    <input
+                      type="password"
+                      id="new-password"
+                      name="new-password"
+                      placeholder="Enter new password"
+                      class="w-full py-3 border-b border-gray-300 rounded-lg focus:border-blue-500 outline-none transition-all"
+                      required
+                    />
+                    <p
+                      id="password-strength"
+                      class="mt-2 text-sm text-gray-500 hidden"
+                    >
+                      Password strength indicator
+                    </p>
+                  </div>
+
+                  <!-- Confirm Password -->
+                  <div>
+                    <label
+                      for="confirm-password"
+                      class="block text-sm font-bold text-black mb-2"
+                    >
+                      Confirm Password*
+                    </label>
+                    <input
+                      type="password"
+                      id="confirm-password"
+                      name="confirm-password"
+                      placeholder="Confirm new password"
+                      class="w-full py-3 border-b border-gray-300 rounded-lg focus:border-blue-500 outline-none transition-all"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <!-- Updated form actions with loading spinner -->
+                <div
+                  class="flex flex-col-reverse sm:flex-row justify-center space-y-3 space-y-reverse sm:space-y-0 sm:space-x-4 mt-8 pt-6"
+                >
+                  <button
+                    type="button"
+                    id="cancelPasswordBtn"
+                    class="w-full sm:w-auto px-8 py-3 border border-blue-600 text-blue-600 rounded-lg hover:bg-gray-50 transition-colors font-medium"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    class="w-full sm:w-auto px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium flex items-center justify-center gap-2"
+                  >
+                    <span id="passwordButtonText">Save Changes</span>
+                    <div
+                      id="passwordSpinner"
+                      class="hidden w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"
+                    ></div>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!------------------- Mobile Sidebar ---------------------------->
+    <div
+      id="mobileSidebar"
+      class="fixed inset-0 bg-[var(--color-neutral-0)] z-50 hidden flex-col p-6 overflow-y-auto"
+    >
+      <div class="flex justify-between items-center mb-8">
+        <div class="flex items-center gap-2">
+          <img
+            src="../../../images/taskhivelogo.svg"
+            class="w-7 h-7"
+            alt=""
+          />
+          <h2
+            class="text-2xl sm:text-2xl font-bold text-[var(--color-dark-blue)]"
+          >
+            TaskHive
+          </h2>
+        </div>
+
+        <div>
+          <!-- <button class="bg-[var(--color-base-blue)] p-2 sm:px-3 sm:py-2 rounded-lg text-white hover:bg-blue-600 transition-colors">
+                <i class="fa-solid fa-plus"></i>
+                <span class="sm:inline ml-1 text-sm">Create Task</span>
+              </button> -->
+
+          <!-- <button class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+            <i class="fa-solid fa-search text-gray-600 text-lg"></i>
+          </button> -->
+
+          <button
+            id="closeBtn"
+            class="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+          >
+            <i class="fa-solid fa-xmark text-2xl sm:text-xl text-gray-700"></i>
+          </button>
+        </div>
+      </div>
+
+      <nav class="flex flex-col gap-4 sm:gap-6">
+        <a
+          href="../dashboard/dashboard.html"
+          class="flex items-center text-lg sm:text-xl py-3 px-4 rounded-lg hover:bg-gray-200 transition-colors"
+        >
+          <i
+            class="fa-solid fa-chart-line mr-4 text-[var(--color-base-blue)]"
+          ></i>
+          Dashboard
+        </a>
+        <a
+          href="../team/team.html"
+          class="flex items-center text-lg sm:text-xl py-3 px-4 rounded-lg hover:bg-gray-200 transition-colors"
+        >
+          <i class="fa-solid fa-users mr-4 text-[var(--color-base-blue)]"></i>
+          Teams
+        </a>
+        <a
+          href="../project/project.html"
+          class="flex items-center text-lg sm:text-xl py-3 px-4 rounded-lg hover:bg-gray-200 transition-colors"
+        >
+          <i
+            class="fa-solid fa-project-diagram mr-4 text-[var(--color-base-blue)]"
+          ></i>
+          Projects
+        </a>
+        <a
+          href="../task/task.html"
+          class="flex items-center text-lg sm:text-xl py-3 px-4 rounded-lg hover:bg-gray-200 transition-colors"
+        >
+          <i class="fa-solid fa-tasks mr-4 text-[var(--color-base-blue)]"></i>
+          Tasks
+        </a>
+        <a
+          href="../others/notification.html"
+          class="flex items-center text-lg sm:text-xl py-3 px-4 rounded-lg hover:bg-gray-200 transition-colors"
+        >
+          <i class="fa-solid fa-bell mr-4 text-[var(--color-base-blue)]"></i>
+          Notifications
+        </a>
+        <a
+          href="../setting/settings.html"
+          class="flex items-center text-lg sm:text-xl py-3 px-4 rounded-lg hover:bg-gray-200 transition-colors"
+        >
+          <i class="fa-solid fa-cog mr-4 text-[var(--color-base-blue)]"></i>
+          Settings
+        </a>
+        <a
+          href="#"
+          class="signOutBtn flex items-center text-lg sm:text-xl py-3 px-4 rounded-lg hover:bg-gray-200 transition-colors"
+        >
+          <i class="fa-solid fa-sign-out-alt mr-4 text-red-600"></i>
+          Sign Out
+        </a>
+      </nav>
+    </div>
+
+    <!-- Signout Modal -->
+    <div
+      id="signOutModal"
+      class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 p-4"
+    >
+      <div
+        class="bg-white p-6 sm:p-8 rounded-lg shadow-xl w-full max-w-sm sm:max-w-md text-center transform transition-all"
+      >
+        <div class="mb-6">
+          <i
+            class="hgi hgi-stroke hgi-logout-circle-01 text-4xl sm:text-5xl text-red-600"
+          ></i>
+        </div>
+        <h3 class="text-lg sm:text-xl font-semibold text-gray-800 mb-2">
+          Sign Out
+        </h3>
+        <p class="text-sm sm:text-base text-gray-600 mb-8">
+          Are you sure you want to sign out of your account?
+        </p>
+        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+          <button
+            id="cancelSignout"
+            class="px-6 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors font-medium"
+          >
+            Cancel
+          </button>
+          <button
+            id="confirmSignOut"
+            class="px-6 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition-colors font-medium"
+          >
+            Sign Out
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUCCESS/ERROR NOTIFICATION MODAL -->
+    <div
+      id="notificationModal"
+      class="fixed inset-0 bg-black/50 modal-backdrop hidden z-50 flex items-center justify-center p-4"
+    >
+      <div class="bg-white rounded-xl shadow-2xl w-full max-w-md slide-up">
+        <div class="p-6 text-center">
+          <div id="notificationIcon" class="mb-4 flex justify-center">
+             <!-- Icon will be inserted here -->
+          </div>
+          <h3
+            id="notificationTitle"
+            class="text-xl font-semibold text-gray-800 mb-2"
+          ></h3>
+          <p id="notificationMessage" class="text-gray-600 mb-6"></p>
+          <button
+            id="closeNotificationModal"
+            class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors w-full"
+          >
+            OK
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="../../js/others/mainsetting.js"></script>
+    <script src="../../js/setting/settings.js"></script>
+  </body>
+</html>

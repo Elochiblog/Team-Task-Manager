@@ -1,0 +1,44 @@
+ 
+      :root {
+        /*--------------------blue-------------------------*/
+        --color-darker-blue: #162664;
+        --color-dark-blue: #253ea7;
+        --color-base-blue: #375dfb;
+        --color-light-blue: #c2d6ff;
+        --color-lighter-blue: #ebf1ff;
+        /*------------------green----------------------*/
+        --color-darker-green: #176448;
+        --color-dark-green: #2d9f75;
+        --color-base-green: #38c793;
+        --color-light-green: #cbf5ef;
+        --color-lighter-green: #effaf6;
+        /*----------------------------yellow----------*/
+        --color-darker-yellow: #693d11;
+        --color-dark-yellow: #b47818;
+        --color-base-yellow: #f2ae40;
+        --color-light-yellow: #fbdfb1;
+        --color-lighter-yellow: #fef7ec;
+        /*---------------------------red-----------------*/
+        --color-darker-red: #710e21;
+        --color-dark-red: #af1d38;
+        --color-base-red: #df1c41;
+        --color-light-red: #f8c9d2;
+        --color-lighter-red: #fdedf0;
+        /*--------------------neutral--------------------*/
+        --color-neutral-900: #0a0d14;
+        --color-neutral-800: #161922;
+        --color-neutral-700: #20232d;
+        --color-neutral-600: #20232d;
+        --color-neutral-500: #525866;
+        --color-neutral-400: #868c98;
+        --color-neutral-300: #cdd0d5;
+        --color-neutral-200: #cdd0d5;
+        --color-neutral-100: #f6f8fa;
+        --color-neutral-0: #ffffff;
+      }
+      #search-bar {
+        transition: all 0.3s ease;
+      }
+      body {
+        font-family: "Inter", sans-serif;
+      }

@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notifications - TaskHive</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="https://use.hugeicons.com/font/icons.css" />
+    <link rel="stylesheet" href="../../css/others/main.css" />
+    <link
+      rel="shortcut icon"
+      href="../../../images/taskhivelogo.svg"
+      type="image/x-icon"
+    />
+
+    <style>
+      :root {
+        --color-dark-blue: #1e3a8a;
+        --color-base-blue: #375dfb;
+        --color-neutral-0: #ffffff;
+      }
+
+      .menu-item {
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .menu-item:hover {
+        background-color: var(--color-base-blue);
+        color: var(--color-neutral-0);
+      }
+
+      .menu-item:hover .icon-black {
+        display: none;
+      }
+
+      .menu-item:hover .icon-white {
+        display: inline-block !important;
+      }
+
+      .search-bar {
+        border: 1px solid #e5e7eb;
+        transition: all 0.3s ease;
+      }
+
+      .search-bar:focus-within {
+        border-color: var(--color-base-blue);
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+      }
+
+      #mobileSidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+      }
+
+      #mobileSidebar:not(.hidden) {
+        transform: translateX(0);
+      }
+
+      @media (max-width: 640px) {
+        .menu-item {
+          padding: 0.75rem;
+          margin-bottom: 0.5rem;
+          border-radius: 0.5rem;
+        }
+      }
+
+      @media (min-width: 768px) and (max-width: 1279px) {
+        .tablet-layout {
+          display: flex;
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-white min-h-screen">
+    <!---------------------- Desktop Layout ------------------------->
+    <div class="xl:flex xl:h-screen" id="desktop-nav">
+      <!-- Sidebar -->
+      <aside
+        id="sidebar"
+        class="hidden xl:block w-64 bg-white shadow-lg p-4 fixed xl:relative h-full xl:h-auto z-40"
+      >
+        <div class="logo flex items-center gap-2 mb-6 ps-2">
+          <img
+            src="../../../images/taskhivelogo.svg"
+            alt="TaskHive logo"
+            class="w-7 h-7"
+          />
+          <h1 class="text-2xl font-bold text-[var(--color-dark-blue)]">
+            TaskHive
+          </h1>
+        </div>
+        <nav class="flex flex-col gap-5">
+          <div
+            class="menu-item xl:w-44 xl:px-3 xl:py-2 xl:rounded-xl flex items-center gap-4"
+          >
+            <img
+              src="../../../images/category bold-dark.svg"
+              class="icon-black w-5 h-5"
+              alt=""
+            />
+            <img
+              src="../../../images/category bold-white.svg"
+              class="icon-white hidden w-5 h-5"
+              alt=""
+            />
+            <a
+              href="../dashboard/dashboard.html"
+              class="flex items-center text-lg font-awesome"
+            >
+              Dashboard</a
+            >
+          </div>
+
+          <div
+            class="menu-item xl:w-44 xl:px-3 xl:py-2 xl:rounded-xl flex items-center gap-4"
+          >
+            <img
+              src="../../../images/team-icon-dark.svg"
+              class="icon-black w-5 h-5"
+              alt=""
+            />
+            <img
+              src="../../../images/team-icon-white.svg"
+              class="icon-white hidden w-5 h-5"
+              alt=""
+            />
+            <a
+              href="../team/team.html"
+              class="flex items-center text-lg font-awesome"
+              >Teams</a
+            >
+          </div>
+
+          <div
+            class="menu-item xl:w-44 xl:px-3 xl:py-2 xl:rounded-xl flex items-center gap-4"
+          >
+            <i class="fa-solid fa-project-diagram icon-black text-lg"></i>
+            <i
+              class="fa-solid fa-project-diagram icon-white text-[var(--color-neutral-0)] hidden text-lg"
+            ></i>
+
+            <a
+              href="../project/project.html"
+              class="flex items-center text-lg font-awesome"
+              >Projects</a
+            >
+          </div>
+
+          <div
+            class="menu-item xl:w-44 xl:px-3 xl:py-2 xl:rounded-xl flex items-center gap-4"
+          >
+            <img
+              src="../../../images/Task-Line-dark.svg"
+              class="icon-black w-5 h-5"
+              alt=""
+            />
+            <img
+              src="../../../images/Taskline-white.svg"
+              class="icon-white hidden w-5 h-5"
+              alt=""
+            />
+            <a
+              href="../task/task.html"
+              class="flex items-center text-lg font-awesome"
+              >Tasks</a
+            >
+          </div>
+
+          <div
+            class="menu-item xl:w-44 xl:px-3 xl:py-2 xl:rounded-xl flex items-center gap-4 xl:ps-2 bg-[var(--color-base-blue)]"
+          >
+            <i
+              class="hgi hgi-stroke hgi-notification-01 icon-black text-lg hidden"
+            ></i>
+            <i
+              class="hgi hgi-stroke hgi-notification-01 icon-white text-[var(--color-neutral-0)] text-lg"
+            ></i>
+            <a
+              href="../others/notification.html"
+              class="flex items-center text-lg font-awesome text-[var(--color-neutral-0)]"
+              >Notifications</a
+            >
+          </div>
+
+          <div
+            class="menu-item xl:w-44 xl:px-3 xl:py-2 xl:rounded-xl flex items-center gap-4"
+          >
+            <i class="hgi hgi-stroke hgi-settings-02 icon-black text-lg"></i>
+            <i
+              class="hgi hgi-stroke hgi-settings-02 icon-white text-[var(--color-neutral-0)] hidden text-lg"
+            ></i>
+            <a
+              href="../setting/settings.html"
+              class="flex items-center text-lg font-awesome"
+              >Settings</a
+            >
+          </div>
+
+          <div
+            class="menu-item xl:w-44 xl:px-3 xl:py-2 xl:rounded-xl flex items-center gap-4"
+          >
+            <i
+              class="hgi hgi-stroke hgi-logout-circle-02 icon-black text-lg"
+            ></i>
+            <i
+              class="hgi hgi-stroke hgi-logout-circle-02 icon-white text-[var(--color-neutral-0)] hidden text-lg"
+            ></i>
+            <a
+              href="#"
+              class="signOutBtn flex items-center text-lg font-awesome"
+              >Sign Out</a
+            >
+          </div>
+        </nav>
+      </aside>
+
+      <!------------------- Main Content ---------------------->
+      <div class="flex-1 flex flex-col xl:ml-0">
+        <!-- Desktop Header -->
+        <header
+          class="h-20 hidden xl:flex items-center justify-between px-6 bg-white shadow-sm sticky top-0 z-40"
+        >
+          <div class="flex items-center gap-4">
+            <img
+              src="../../../images/Avatarbrown.svg"
+              class="w-12 h-12 rounded-full object-cover"
+              alt="User Avatar"
+            />
+
+            <div>
+              <h2 class="font-semibold text-4xl md:text-xl">
+                <span id="username"></span>
+              </h2>
+              <p class="text-sm md:text-base text-gray-600 hidden lg:block">
+                Welcome back to TaskHive 👋🏻
+              </p>
+            </div>
+          </div>
+        </header>
+
+        <!----------------------- Mobile / Tablet Header --------------------------->
+        <header class="p-2 xl:hidden bg-white shadow-sm sticky top-0 z-40">
+          <div class="flex justify-between items-center mb-2"></div>
+
+          <!-- <div class="flex items-center gap-3">                
+              <img src="images/ta" alt="TaskHive logo" class="w-10 h-10 sm:w-12 sm:h-12" />
+              <h1 class="text-xl sm:text-2xl md:text-3xl font-bold text-[var(--color-dark-blue)]">
+                TaskHive
+              </h1>
+            </div> -->
+
+          <!-- <button class="menuBtn p-2 hover:bg-gray-100 rounded-lg transition-colors">
+              <i class="fa-solid fa-bars text-xl sm:text-2xl md:text-3xl text-gray-700"></i>
+            </button>
+          </div> -->
+
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3 sm:gap-4">
+              <img
+                src="../../../images/Avatarbrown.svg"
+                class="w-12 h-12 sm:w-14 sm:h-14 md:w-15 md:h-15 rounded-full object-cover"
+                alt="User Avatar"
+              />
+              <div>
+                <h2 class="font-semibold text-base sm:text-lg md:text-xl">
+                  <span id="usernames"></span>
+                </h2>
+                <p class="text-sm md:text-base text-gray-500">
+                  Welcome back to TaskHive 👋🏻
+                </p>
+              </div>
+            </div>
+
+            <!-- Mobile Action Buttons -->
+            <div class="flex items-center gap-2 sm:gap-3">
+              <!-- <button class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                <i class="fa-solid fa-search text-gray-600 text-lg"></i>
+              </button> -->
+              <button
+                class="p-2 hover:bg-gray-100 rounded-full transition-colors"
+              >
+                <i class="fa-solid fa-bell text-gray-600 text-lg"></i>
+              </button>
+
+              <button
+                class="menuBtn p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              >
+                <i
+                  class="fa-solid fa-bars text-xl sm:text-2xl md:text-3xl text-gray-700"
+                ></i>
+              </button>
+
+              <!-- <button class="flex bg-[var(--color-base-blue)] p-2 sm:px-3 sm:py-2 rounded-lg text-white hover:bg-blue-600 transition-colors">
+                <i class="fa-solid fa-plus"></i>
+                <span class="hidden sm:inline ml-1 text-sm">Create Task</span>
+              </button> -->
+            </div>
+          </div>
+        </header>
+
+        <!-- Notifications Content -->
+        <main class="flex-1 p-5 sm:p-6 bg-gray-50 overflow-auto">
+          <div class="max-w-7xl mx-auto">
+            <h1 class="text-2xl font-semibold text-gray-900 mb-8">
+              Notifications
+            </h1>
+
+            <!-- Filter Tabs -->
+            <div
+              class="flex justify-between space-x-8 mb-8 border-b border-gray-200"
+            >
+              <div class="flex gap-8">
+                <button
+                  class="pb-4 text-gray-900 border-b-2 border-blue-600 font-medium"
+                >
+                  Today
+                </button>
+
+                <button
+                  class="pb-4 text-gray-500 hover:text-gray-700 flex items-center gap-2"
+                  id="tab-all"
+                >
+                  All
+                  <span
+                    id="count-all"
+                    class="text-xs bg-gray-200 text-gray-700 px-2 py-0.5 rounded-full"
+                    >0</span
+                  >
+                </button>
+
+                <button
+                  class="pb-4 text-gray-500 hover:text-gray-700 flex items-center gap-2"
+                  id="tab-unread"
+                >
+                  Unread
+                  <span
+                    id="count-unread"
+                    class="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full"
+                    >0</span
+                  >
+                </button>
+
+                <button
+                  class="pb-4 text-gray-500 hover:text-gray-700 flex items-center gap-2"
+                  id="tab-read"
+                >
+                  Read
+                  <span
+                    id="count-read"
+                    class="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full"
+                    >0</span
+                  >
+                </button>
+              </div>
+              <div class="flex">
+                <button
+                  id="markAllReadBtn"
+                  class="hover:underline pb-4 text-gray-500 hover:text-gray-700 flex items-center"
+                >
+                  Mark all as Read
+                </button>
+              </div>
+            </div>
+
+            <!-- Today's Notifications -->
+            <div class="space-y-6">
+              <!-- Task Assignment -->
+              <div
+                class="notification-item bg-white rounded-lg border border-gray-200 p-6 transition-colors"
+              >
+                <div class="flex items-start justify-between">
+                  <div class="flex-1">
+                    <h3 class="font-semibold text-gray-900 mb-2"></h3>
+                    <p class="text-gray-600 text-sm leading-relaxed"></p>
+                  </div>
+                  <div class="flex items-center space-x-4 ml-6">
+                    <button
+                      class="delete-btn p-2 text-gray-400 hover:text-red-500 transition-colors"
+                      data-notification="Task Assignment"
+                    >
+                      <i class="fas fa-trash text-lg"></i>
+                    </button>
+                    <span class="text-sm text-gray-500 font-medium"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div
+      id="deleteModal"
+      class="fixed inset-0 bg-black bg-opacity-50 modal-backdrop hidden items-center justify-center z-50"
+    >
+      <div
+        class="bg-white rounded-xl shadow-2xl p-8 max-w-md w-full mx-4 transform transition-all"
+      >
+        <div class="text-center">
+          <div class="mb-4 flex justify-center">
+            <div class="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center">
+              <i class="fa-solid fa-trash text-red-600 text-xl"></i>
+            </div>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-800 mb-2">
+            Delete Notification
+          </h3>
+          <p class="text-gray-600 mb-6">
+            Are you sure you want to delete this notification? This action cannot be undone.
+          </p>
+          <div class="flex gap-3">
+            <button
+              id="cancelDelete"
+              class="flex-1 border border-gray-300 rounded-lg px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors"
+            >
+              Cancel
+            </button>
+            <button
+              id="confirmDelete"
+              class="flex-1 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2"
+            >
+              <span id="deleteButtonText">Delete</span>
+              <div
+                id="deleteSpinner"
+                class="hidden w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"
+              ></div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div
+      id="notificationModal"
+      class="fixed inset-0 bg-black/50 modal-backdrop hidden z-50 flex items-center justify-center p-4"
+    >
+      <div class="bg-white rounded-xl shadow-2xl w-full max-w-md slide-up">
+        <div class="p-6 text-center">
+          <div id="notificationIcon" class="mb-4 flex justify-center">
+             <!-- Icon will be inserted here -->
+          </div>
+          <h3 id="notificationTitle" class="text-xl font-semibold text-gray-800 mb-2"></h3>
+          <p id="notificationMessage" class="text-gray-600 mb-6"></p>
+          <button
+            id="closeNotificationModal"
+            class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors w-full"
+          >
+            OK
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!------------------- Mobile Sidebar ---------------------------->
+    <div
+      id="mobileSidebar"
+      class="fixed inset-0 bg-[var(--color-neutral-0)] z-50 hidden flex-col p-6 overflow-y-auto"
+    >
+      <div class="flex justify-between items-center mb-8">
+        <div class="flex items-center gap-2">
+          <img
+            src="../../../images/taskhivelogo.svg"
+            class="w-7 h-7"
+            alt=""
+          />
+          <h2
+            class="text-2xl sm:text-2xl font-bold text-[var(--color-dark-blue)]"
+          >
+            TaskHive
+          </h2>
+        </div>
+
+        <div>
+          <!-- <button class="bg-[var(--color-base-blue)] p-2 sm:px-3 sm:py-2 rounded-lg text-white hover:bg-blue-600 transition-colors">
+                <i class="fa-solid fa-plus"></i>
+                <span class="sm:inline ml-1 text-sm">Create Task</span>
+              </button> -->
+
+          <!-- <button class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+            <i class="fa-solid fa-search text-gray-600 text-lg"></i>
+          </button> -->
+
+          <button
+            id="closeBtn"
+            class="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+          >
+            <i class="fa-solid fa-xmark text-2xl sm:text-xl text-gray-700"></i>
+          </button>
+        </div>
+      </div>
+
+      <nav class="flex flex-col gap-4 sm:gap-6">
+        <a
+          href="../dashboard/dashboard.html"
+          class="flex items-center text-lg sm:text-xl py-3 px-4 rounded-lg hover:bg-gray-200 transition-colors"
+        >
+          <i
+            class="fa-solid fa-chart-line mr-4 text-[var(--color-base-blue)]"
+          ></i>
+          Dashboard
+        </a>
+        <a
+          href="../team/team.html"
+          class="flex items-center text-lg sm:text-xl py-3 px-4 rounded-lg hover:bg-gray-200 transition-colors"
+        >
+          <i class="fa-solid fa-users mr-4 text-[var(--color-base-blue)]"></i>
+          Teams
+        </a>
+        <a
+          href="../project/project.html"
+          class="flex items-center text-lg sm:text-xl py-3 px-4 rounded-lg hover:bg-gray-200 transition-colors"
+        >
+          <i
+            class="fa-solid fa-project-diagram mr-4 text-[var(--color-base-blue)]"
+          ></i>
+          Projects
+        </a>
+        <a
+          href="../task/task.html"
+          class="flex items-center text-lg sm:text-xl py-3 px-4 rounded-lg hover:bg-gray-200 transition-colors"
+        >
+          <i class="fa-solid fa-tasks mr-4 text-[var(--color-base-blue)]"></i>
+          Tasks
+        </a>
+        <a
+          href="../others/notification.html"
+          class="flex items-center text-lg sm:text-xl py-3 px-4 rounded-lg hover:bg-gray-200 transition-colors"
+        >
+          <i class="fa-solid fa-bell mr-4 text-[var(--color-base-blue)]"></i>
+          Notifications
+        </a>
+        <a
+          href="../setting/settings.html"
+          class="flex items-center text-lg sm:text-xl py-3 px-4 rounded-lg hover:bg-gray-200 transition-colors"
+        >
+          <i class="fa-solid fa-cog mr-4 text-[var(--color-base-blue)]"></i>
+          Settings
+        </a>
+        <a
+          href="#"
+          class="signOutBtn flex items-center text-lg sm:text-xl py-3 px-4 rounded-lg hover:bg-gray-200 transition-colors"
+        >
+          <i class="fa-solid fa-sign-out-alt mr-4 text-red-600"></i>
+          Sign Out
+        </a>
+      </nav>
+    </div>
+
+    <!-- Signout Modal -->
+    <div
+      id="signOutModal"
+      class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 p-4"
+    >
+      <div
+        class="bg-white p-6 sm:p-8 rounded-lg shadow-xl w-full max-w-sm sm:max-w-md text-center transform transition-all"
+      >
+        <div class="mb-6">
+          <i
+            class="hgi hgi-stroke hgi-logout-circle-01 text-4xl sm:text-5xl text-red-600"
+          ></i>
+        </div>
+        <h3 class="text-lg sm:text-xl font-semibold text-gray-800 mb-2">
+          Sign Out
+        </h3>
+        <p class="text-sm sm:text-base text-gray-600 mb-8">
+          Are you sure you want to sign out of your account?
+        </p>
+        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+          <button
+            id="cancelSignout"
+            class="px-6 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors font-medium"
+          >
+            Cancel
+          </button>
+          <button
+            id="confirmSignOut"
+            class="px-6 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition-colors font-medium"
+          >
+            Sign Out
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const tokenData = JSON.parse(localStorage.getItem("token"));
+        const token = tokenData?.access_token;
+        const notificationsContainer = document.querySelector(".space-y-6");
+        const counterBadge = document.createElement("div");
+
+        // Modal elements
+        const deleteModal = document.getElementById("deleteModal");
+        const notificationModal = document.getElementById("notificationModal");
+        const cancelDelete = document.getElementById("cancelDelete");
+        const confirmDelete = document.getElementById("confirmDelete");
+        const closeNotificationBtn = document.getElementById("closeNotificationModal");
+
+        let currentNotificationElement = null;
+        let currentNotificationId = null;
+        let notifications = [];
+
+        // Add a counter to title area
+        const headerTitle = document.querySelector("h1");
+        counterBadge.className = "";
+        headerTitle.appendChild(counterBadge);
+
+        if (!token) {
+          notificationsContainer.innerHTML = `<p>No notifications available</p>`;
+          return;
+        }
+
+        const headers = {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        };
+
+        // Helper functions for modals
+        function openModal(modal) {
+          modal.classList.remove("hidden");
+          modal.classList.add("flex");
+          document.body.style.overflow = "hidden";
+        }
+
+        function closeModal(modal) {
+          modal.classList.add("hidden");
+          modal.classList.remove("flex");
+          document.body.style.overflow = "auto";
+        }
+
+        // Show notification modal
+        function showNotification(type, title, message) {
+          const iconContainer = document.getElementById("notificationIcon");
+          const titleElement = document.getElementById("notificationTitle");
+          const messageElement = document.getElementById("notificationMessage");
+
+          // Set icon based on type
+          if (type === "success") {
+            iconContainer.innerHTML = `
+              <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center">
+                <i class="fa-solid fa-check text-green-600 text-2xl"></i>
+              </div>
+            `;
+          } else {
+            iconContainer.innerHTML = `
+              <div class="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center">
+                <i class="fa-solid fa-exclamation text-red-600 text-2xl"></i>
+              </div>
+            `;
+          }
+
+          titleElement.textContent = title;
+          messageElement.textContent = message;
+
+          // Ensure notification modal is on top
+          notificationModal.style.zIndex = "9999";
+          openModal(notificationModal);
+        }
+
+        // Close notification modal
+        if (closeNotificationBtn) {
+          closeNotificationBtn.addEventListener("click", () => {
+            closeModal(notificationModal);
+            notificationModal.style.zIndex = "";
+          });
+        }
+
+        // Cancel delete
+        if (cancelDelete) {
+          cancelDelete.addEventListener("click", function () {
+            closeModal(deleteModal);
+            currentNotificationElement = null;
+            currentNotificationId = null;
+          });
+        }
+
+        if (confirmDelete) {
+          confirmDelete.addEventListener("click", async function () {
+            const spinner = document.getElementById("deleteSpinner");
+            const btnText = document.getElementById("deleteButtonText");
+
+            spinner.classList.remove("hidden");
+            btnText.textContent = "Deleting...";
+            confirmDelete.disabled = true;
+
+            try {
+              if (currentNotificationId) {
+                const response = await fetch(
+                  `https://be.taskmanager.kode.camp/notifications/${currentNotificationId}`,
+                  {
+                    method: "DELETE",
+                    headers: {
+                      Authorization: `Bearer ${token}`,
+                    },
+                  }
+                );
+
+                if (!response.ok) {
+                  throw new Error("Failed to delete notification");
+                }
+
+                // Close delete modal first
+                closeModal(deleteModal);
+
+                // Update notifications array
+                notifications = notifications.filter((n) => n.id != currentNotificationId);
+
+                // Refresh the UI immediately
+                renderNotifications(notifications);
+
+                // Show success notification
+                showNotification("success", "Deleted!", "Notification has been deleted successfully.");
+              }
+            } catch (err) {
+              console.error("Failed to delete notification:", err);
+              closeModal(deleteModal);
+              showNotification("error", "Error", "Failed to delete notification. Please try again.");
+            } finally {
+              spinner.classList.add("hidden");
+              btnText.textContent = "Delete";
+              confirmDelete.disabled = false;
+              currentNotificationElement = null;
+              currentNotificationId = null;
+            }
+          });
+        }
+
+        // Close modals when clicking outside
+        [deleteModal, notificationModal].forEach((modal) => {
+          modal.addEventListener("click", function (e) {
+            if (e.target === modal) {
+              closeModal(modal);
+              if (modal === deleteModal) {
+                currentNotificationElement = null;
+                currentNotificationId = null;
+              }
+              if (modal === notificationModal) {
+                notificationModal.style.zIndex = "";
+              }
+            }
+          });
+        });
+
+        // Keyboard navigation
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape") {
+            if (!deleteModal.classList.contains("hidden")) {
+              closeModal(deleteModal);
+              currentNotificationElement = null;
+              currentNotificationId = null;
+            }
+            if (!notificationModal.classList.contains("hidden")) {
+              closeModal(notificationModal);
+              notificationModal.style.zIndex = "";
+            }
+          }
+        });
+
+        // --- Render Function ---
+        function renderNotifications(list) {
+          notificationsContainer.innerHTML = "";
+
+          if (!list || list.length === 0) {
+            notificationsContainer.innerHTML = `
+      <div class="text-center text-gray-500 py-10">No notifications yet 📭</div>`;
+            document.getElementById("count-all").textContent = 0;
+            document.getElementById("count-unread").textContent = 0;
+            document.getElementById("count-read").textContent = 0;
+            return;
+          }
+
+          const unreadCount = list.filter((n) => !n.is_read).length;
+          const readCount = list.filter((n) => n.is_read).length;
+          const totalCount = list.length;
+
+          // update tab counters
+          document.getElementById("count-all").textContent = totalCount;
+          document.getElementById("count-unread").textContent = unreadCount;
+          document.getElementById("count-read").textContent = readCount;
+
+          list.forEach((n) => {
+            const isRead = n.is_read ? "opacity-70" : "bg-blue-50";
+            const notifHTML = `
+      <div class="notification-item ${isRead} rounded-lg border border-gray-200 p-4 hover:bg-gray-100 transition cursor-pointer" data-id="${
+              n.id
+            }">
+        <div class="flex items-start justify-between">
+          <div class="flex-1">
+            <h3 class="font-semibold text-gray-900 mb-1">${
+              n.title || "Notification"
+            }</h3>
+            <p class="text-gray-600 text-sm leading-relaxed line-clamp-2">${
+              n.message
+            }</p>
+          </div>
+          <div class="flex items-center space-x-3 ml-4">
+            <button class="toggle-read text-sm text-blue-600 underline">
+              ${n.is_read ? "Mark Unread" : "Mark Read"}
+            </button>
+            <button class="delete-btn text-gray-400 hover:text-red-500">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
+        </div>
+        <div class="text-xs text-gray-500 mt-2">
+          ${new Date(n.created_at).toLocaleString()}
+        </div>
+      </div>`;
+            notificationsContainer.insertAdjacentHTML("beforeend", notifHTML);
+          });
+
+          attachNotificationEvents();
+        }
+
+        // Tab filters
+        document.getElementById("tab-unread").addEventListener("click", () => {
+          renderNotifications(notifications.filter((n) => !n.is_read));
+        });
+
+        document.getElementById("tab-read").addEventListener("click", () => {
+          renderNotifications(notifications.filter((n) => n.is_read));
+        });
+
+        document.getElementById("tab-all").addEventListener("click", () => {
+          renderNotifications(notifications);
+        });
+
+        // --- Event handlers for read/unread, delete, and expand ---
+        function attachNotificationEvents() {
+          // --- Individual notification click ---
+          document.querySelectorAll(".notification-item").forEach((item) => {
+            item.addEventListener("click", async () => {
+              const id = item.dataset.id;
+              const clickedNotif = notifications.find((n) => n.id == id);
+
+              // Toggle read/unread status
+              const newStatus = !clickedNotif.is_read;
+
+              try {
+                await fetch(
+                  `https://be.taskmanager.kode.camp/notifications/${id}`,
+                  {
+                    method: "PATCH",
+                    headers: {
+                      ...headers,
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ is_read: newStatus }),
+                  }
+                );
+
+                // Update local state
+                notifications = notifications.map((n) =>
+                  n.id == id ? { ...n, is_read: newStatus } : n
+                );
+
+                renderNotifications(notifications);
+              } catch (err) {
+                console.error("Failed to toggle read/unread:", err);
+                showNotification(
+                  "error",
+                  "Error",
+                  "Failed to update notification status."
+                );
+              }
+            });
+          });
+
+          document.querySelectorAll(".delete-btn").forEach((btn) => {
+            btn.addEventListener("click", async (e) => {
+              e.stopPropagation();
+              const item = e.target.closest(".notification-item");
+              currentNotificationElement = item;
+              currentNotificationId = item.dataset.id;
+              openModal(deleteModal);
+            });
+          });
+
+          // --- MARK ALL AS READ ---
+          const markAllBtn = document.getElementById("markAllReadBtn");
+          if (markAllBtn) {
+            // Remove existing listeners to prevent duplicates
+            const newMarkAllBtn = markAllBtn.cloneNode(true);
+            markAllBtn.parentNode.replaceChild(newMarkAllBtn, markAllBtn);
+
+            newMarkAllBtn.addEventListener("click", async () => {
+              try {
+                await fetch(
+                  "https://be.taskmanager.kode.camp/notifications/mark-all-read",
+                  {
+                    method: "PATCH",
+                    headers,
+                  }
+                );
+
+                // Update all locally
+                notifications = notifications.map((n) => ({
+                  ...n,
+                  is_read: true,
+                }));
+
+                renderNotifications(notifications);
+                showNotification(
+                  "success",
+                  "Success!",
+                  "All notifications marked as read."
+                );
+              } catch (err) {
+                console.error("Failed to mark all as read:", err);
+                showNotification("error", "Error", "Failed to mark all as read.");
+              }
+            });
+          }
+        }
+
+        // --- Fetch Notifications ---
+        async function fetchNotifications() {
+          try {
+            const res = await fetch(
+              "https://be.taskmanager.kode.camp/notifications/?limit=50&offset=0",
+              { headers }
+            );
+            if (!res.ok) throw new Error("Failed to load notifications");
+            notifications = await res.json();
+            renderNotifications(notifications);
+          } catch (err) {
+            console.error(err);
+            notificationsContainer.innerHTML = `
+        <div class="text-center text-red-500 py-10">⚠️ Failed to load notifications</div>`;
+            showNotification("error", "Error", "Failed to load notifications.");
+          }
+        }
+
+        // --- SSE Stream for Live Updates ---
+        function subscribeToStream() {
+          const stream = new EventSource(
+            "https://be.taskmanager.kode.camp/notifications/stream",
+            { withCredentials: true }
+          );
+          stream.onmessage = (event) => {
+            try {
+              const notification = JSON.parse(event.data);
+              if (notification?.id) {
+                notifications.unshift(notification);
+                renderNotifications(notifications);
+              }
+            } catch (err) {
+              console.error("Stream error:", err);
+            }
+          };
+          stream.onerror = () => {
+            console.warn("Reconnecting stream...");
+            setTimeout(subscribeToStream, 5000);
+          };
+        }
+
+        fetchNotifications();
+        subscribeToStream();
+
+        // Tab navigation functionality
+        const tabButtons = document.querySelectorAll('[class*="pb-4"]');
+        tabButtons.forEach((button) => {
+          button.addEventListener("click", function () {
+            // Remove active state from all tabs
+            tabButtons.forEach((tab) => {
+              tab.classList.remove(
+                "text-gray-900",
+                "border-b-2",
+                "border-blue-600",
+                "font-medium"
+              );
+              tab.classList.add("text-gray-500");
+            });
+
+            // Add active state to clicked tab
+            this.classList.remove("text-gray-500");
+            this.classList.add(
+              "text-gray-900",
+              "border-b-2",
+              "border-blue-600",
+              "font-medium"
+            );
+          });
+        });
+      });
+    </script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const user = JSON.parse(localStorage.getItem("user"));
+
+        if (user) {
+          document.getElementById("username").textContent = user.name;
+          if (user.avatar_url) {
+            document.getElementById("avatar").src = user.avatar_url;
+          }
+        }
+
+        if (user) {
+          document.getElementById("usernames").textContent = user.name;
+          if (user.avatar_url) {
+            document.getElementById("avatar").src = user.avatar_url;
+          }
+        } else {
+          // If not signed in, redirect to homepage
+          window.location.href = "../../../index.html";
+        }
+
+        const signOutBtns = document.querySelectorAll(".signOutBtn");
+        const signOutModal = document.getElementById("signOutModal");
+        const cancelSignout = document.getElementById("cancelSignout");
+        const confirmSignOut = document.getElementById("confirmSignOut");
+
+        // Show sign out modal when any sign out button is clicked
+        signOutBtns.forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            e.preventDefault();
+            signOutModal.classList.remove("hidden");
+            signOutModal.classList.add("flex");
+          });
+        });
+
+        // Cancel sign out
+        if (cancelSignout) {
+          cancelSignout.addEventListener("click", () => {
+            signOutModal.classList.add("hidden");
+            signOutModal.classList.remove("flex");
+          });
+        }
+
+        // Confirm sign out
+        if (confirmSignOut) {
+          confirmSignOut.addEventListener("click", () => {
+            // Clear user data from localStorage
+            localStorage.removeItem("token");
+            localStorage.removeItem("selectedTeamId");
+            localStorage.removeItem("selectedProjectId");
+            localStorage.removeItem("user");
+            
+            // Redirect to login page
+            window.location.href = "../auth/login.html";
+          });
+        }
+
+        // Close modal when clicking outside
+        signOutModal.addEventListener("click", (e) => {
+          if (e.target === signOutModal) {
+            signOutModal.classList.add("hidden");
+            signOutModal.classList.remove("flex");
+          }
+        });
+      });
+
+
+              // ===== Mobile Sidebar Toggle =====
+        const menuBtns = document.querySelectorAll(".menuBtn");
+        const mobileSidebar = document.getElementById("mobileSidebar");
+        const closeBtn = document.getElementById("closeBtn");
+
+        if (menuBtns && mobileSidebar) {
+          menuBtns.forEach((btn) => {
+            btn.addEventListener("click", () => {
+              mobileSidebar.classList.remove("hidden");
+              document.body.style.overflow = "hidden"; // Prevent background scroll
+            });
+          });
+        }
+
+        if (closeBtn && mobileSidebar) {
+          closeBtn.addEventListener("click", () => {
+            mobileSidebar.classList.add("hidden");
+            document.body.style.overflow = "auto"; // Restore scroll
+          });
+        }
+
+        // Close sidebar when clicking outside
+        mobileSidebar.addEventListener("click", (e) => {
+          if (e.target === mobileSidebar) {
+            mobileSidebar.classList.add("hidden");
+            document.body.style.overflow = "auto";
+          }
+        });
+
+    </script>
+
+    
+  </body>
+</html>

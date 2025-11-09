@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Onboarding - TaskHive</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+			rel="shortcut icon"
+			href="../../../images/taskhivelogo.svg"
+			type="image/x-icon"
+		/>
+    <link rel="stylesheet" href="https://use.hugeicons.com/font/icons.css" />
+    <link rel="stylesheet" href="../../css/setting/settings.css" />
+  </head>
+  <body class="bg-[var(--color-dark-blue)] font-[Poppins] min-h-screen flex items-center justify-center relative overflow-hidden">
+
+    <!-- Slide 1 -->
+    <div class="slide absolute inset-0 flex items-center justify-center gap-4 opacity-100 transition-opacity duration-700">
+      <img src="../../../images/logo.svg" alt="logo" class="w-12 h-12 object-contain" />
+      <div class="flex flex-col">
+        <h1 class="text-4xl font-bold text-white">TaskHive</h1>
+        <p class="text-white">The one stop app for work</p>
+      </div>
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="slide absolute inset-0 flex flex-col items-center justify-center text-center opacity-0 transition-opacity duration-700">
+      <div class="absolute top-4 left-4 flex items-center gap-2">
+        <img src="../../../images/logo.svg" alt="logo" class="w-8 h-8 object-contain" />
+        <h1 class="text-lg font-bold text-white">TaskHive</h1>
+      </div>
+
+
+      <div class="mt-12 px-4 flex flex-col items-center">
+        <h2 class="text-2xl text-white mb-4">
+          <span class="text-[var(--color-darker-blue)] font-bold">Start</span> organizing
+        </h2>
+        <img src="../../../images/screen2%20img.png" alt="Start organizing" class="max-h-[50vh] object-contain mb-6" />
+        <p class="text-white max-w-md text-center leading-relaxed">
+          Start fresh with a simple and cozy way to organize your tasks, priorities, and daily plans.
+        </p>
+      </div>
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="slide absolute inset-0 flex flex-col items-center justify-center text-center opacity-0 transition-opacity duration-700">
+      <div class="absolute top-4 left-4 flex items-center gap-2">
+        <img src="../../../images/logo.svg" alt="logo" class="w-8 h-8 object-contain" />
+        <h1 class="text-lg font-bold text-white">TaskHive</h1>
+      </div>
+
+      <div class="mt-12 px-4 flex flex-col items-center">
+        <h2 class="text-2xl text-white mb-4">
+          <span class="text-[var(--color-darker-blue)] font-bold">Stay on</span> Track
+        </h2>
+        <img src="../../../images/screen3%20img.png" alt="Stay on Track" class="max-h-[50vh] object-contain mb-6" />
+        <p class="text-white max-w-md text-center leading-relaxed">
+          Welcome back! Pick up right where you left off and stay on top of what matters most.
+        </p>
+      </div>
+    </div>
+
+    <script src="../../js/auth/onboarding.js"></script>
+  </body>
+</html>

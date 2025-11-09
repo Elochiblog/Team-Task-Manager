@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - TaskHive</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link
+			rel="shortcut icon"
+			href="../../../images/taskhivelogo.svg"
+			type="image/x-icon"
+		/>
+</head>
+<body class="min-h-screen bg-gray-100 flex items-center justify-center overflow-hidden">
+    <!-- Background Illustration -->
+    <div class="absolute flex items-center justify-center">
+        <div class="relative">
+            <img src="../../../Assets/background-image.svg" alt="background-image">
+        </div>
+    </div>
+
+    <!-- Login Form -->
+    <div class="relative w-full max-w-md bg-white rounded-2xl shadow-lg px-10 py-5">
+        <h1 class="text-3xl font-bold text-center text-gray-900 mb-5">Login</h1>
+
+        <form id="loginForm" class="space-y-4">
+            <!-- Email Field -->
+            <div>
+                <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <img src="../../../Assets/email-icon.svg" alt="email-icon">
+                    </div>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email"
+                        class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                        placeholder="Enter Email Address">
+                </div>
+                <div id="emailError" class="hidden mt-2 flex items-center text-red-500 text-sm">
+                    <i class="fas fa-exclamation-circle mr-2"></i>
+                    <span>The Email Address is Incorrect!</span>
+                </div>
+            </div>
+
+            <!-- Password Field -->
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-700 mb-2">Enter Password</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <img src="../../../Assets/password-icon.svg" alt="password-icon">
+                    </div>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password"
+                        class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                        placeholder="Enter Password">
+                    <button 
+                        type="button" 
+                        id="togglePassword"
+                        class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors">
+
+                        <!-- Eye open icon (default state) -->
+                        <svg id="eyeClosedIcon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                        </svg>
+                        <svg id="eyeOpenIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"/>
+                        </svg>
+                    </button>
+                </div>
+                <div id="passwordError" class="hidden mt-2 flex items-center text-red-500 text-sm">
+                    <i class="fas fa-exclamation-circle mr-2"></i>
+                    <span>The Password is Incorrect!</span>
+                </div>
+            </div>
+
+            <!-- Forgot Password -->
+            <div class="text-right">
+                <a href="forgotpassword.html" class="text-blue-700 text-sm hover:text-blue-600 transition-colors">Forgot Password?</a>
+            </div>
+
+            <!-- Login Button -->
+            <button id="loginButton" type="submit" class="w-full flex items-center justify-center bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors">
+  <span id="loginButtonText">Login</span>
+  <svg id="loginSpinner" class="hidden ml-2 w-5 h-5 animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+  </svg>
+</button>
+
+
+<p class="text-center text-gray-700 mb-4 gap-5">
+                Don't have an account?
+                <a href="../../html/auth/signup.html" class="text-blue-600 hover:text-blue-500 font-semibold text-lg">SignUp</a>
+                </p>
+
+
+            <!-- Divider -->
+            <div class="relative my-6">
+                <div class="absolute inset-0 flex items-center">
+                    <div class="w-full border-t border-gray-300"></div>
+                </div>
+                <div class="relative flex justify-center text-sm">
+                    <span class="px-2 bg-white text-gray-500">Or</span>
+                </div>
+            </div>
+
+            <!-- Google Login -->
+            <button 
+                type="button" 
+                class="w-full flex items-center justify-center gap-2 py-3 border border-gray-300 rounded-lg text-gray-700 bg-white font-medium hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors">
+                <img src="../../../Assets/Google-logo.svg" alt="Google-logo"> Continue with Google </button>
+        </form>
+
+        <!-- Footer -->
+        <div class="mt-7 text-center">
+            <div class="flex items-center justify-center text-gray-600 gap-2">
+                <img src="../../../Assets/logo.svg" alt="taskhive-logo">
+                <span>The one stop app for work</span>
+            </div>
+        </div>
+    </div>
+
+<!-- Modal -->
+<div id="modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+  <div class="bg-white rounded-xl shadow-lg p-6 w-80 text-center">
+    <h2 id="modalTitle" class="text-lg font-semibold mb-2"></h2>
+    <p id="modalMessage" class="text-gray-600 mb-4"></p>
+    <button id="modalClose" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg">OK</button>
+  </div>
+</div>
+
+
+<script>
+  // Password visibility toggle
+  const togglePasswordBtn = document.getElementById('togglePassword');
+  const eyeOpenIcon = document.getElementById('eyeOpenIcon');
+  const eyeClosedIcon = document.getElementById('eyeClosedIcon');
+  const passwordInput = document.getElementById('password');
+  let isPasswordVisible = false;
+
+  togglePasswordBtn.addEventListener('click', function() {
+    isPasswordVisible = !isPasswordVisible;
+    passwordInput.type = isPasswordVisible ? 'text' : 'password';
+    eyeOpenIcon.classList.toggle('hidden', isPasswordVisible);
+    eyeClosedIcon.classList.toggle('hidden', !isPasswordVisible);
+  });
+
+  // Form + button
+  const form = document.getElementById('loginForm');
+  const emailInput = document.getElementById('email');
+  const emailError = document.getElementById('emailError');
+  const passwordError = document.getElementById('passwordError');
+  const loginButton = document.getElementById('loginButton');
+  const loginButtonText = document.getElementById('loginButtonText');
+  const loginSpinner = document.getElementById('loginSpinner'); 
+
+  // Modal elements
+  const modal = document.getElementById('modal');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalMessage = document.getElementById('modalMessage');
+  const modalClose = document.getElementById('modalClose');
+
+  // Show modal
+  function showModal(title, message, redirect = false) {
+    modalTitle.textContent = title;
+    modalMessage.textContent = message;
+    modal.classList.remove('hidden');
+
+    modalClose.onclick = () => {
+      modal.classList.add('hidden');
+      if (redirect) {
+        window.location.href = 'onboarding.html';
+      }
+    };
+  }
+
+  // Validation helpers
+  function validateEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+  function validatePassword(password) {
+    return password.length >= 8;
+  }
+  function showError(input, errorElement, message) {
+    input.classList.remove('border-gray-300', 'focus:border-blue-500');
+    input.classList.add('border-red-500', 'focus:border-red-500');
+    errorElement.classList.remove('hidden');
+    errorElement.querySelector('span').textContent = message;
+  }
+  function hideError(input, errorElement) {
+    input.classList.remove('border-red-500', 'focus:border-red-500');
+    input.classList.add('border-gray-300', 'focus:border-blue-500');
+    errorElement.classList.add('hidden');
+  }
+
+  // Loading state helpers
+  function showLoadingState() {
+    loginButton.disabled = true;
+    loginButtonText.textContent = 'Logging in...';
+    if (loginSpinner) loginSpinner.classList.remove('hidden');
+  }
+  function hideLoadingState() {
+    loginButton.disabled = false;
+    loginButtonText.textContent = 'Login';
+    if (loginSpinner) loginSpinner.classList.add('hidden');
+  }
+
+  
+  // Form submit handler
+form.addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  const email = emailInput.value.trim();
+  const password = passwordInput.value;
+  let hasErrors = false;
+
+  // ---------- Frontend Validation ----------
+  // Email checks
+  if (!email) {
+    showError(emailInput, emailError, 'Email is required!');
+    hasErrors = true;
+  } else if (!validateEmail(email)) {
+    showError(emailInput, emailError, 'The Email Address is Incorrect!');
+    hasErrors = true;
+  } else {
+    hideError(emailInput, emailError);
+  }
+
+  // Password checks
+  if (!password) {
+    showError(passwordInput, passwordError, 'Password is required!');
+    hasErrors = true;
+  } else if (!validatePassword(password)) {
+    showError(passwordInput, passwordError, 'Password must be at least 8 characters.');
+    hasErrors = true;
+  } else {
+    hideError(passwordInput, passwordError);
+  }
+
+  if (hasErrors) return;
+
+  // ---------- Call Login API ----------
+  showLoadingState();
+
+  try {
+    const res = await fetch('https://be.taskmanager.kode.camp/auth/login', {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({ email, password })
+    });
+
+    const data = await res.json();
+    console.log("Login API response:", data);
+
+    if (res.ok && data.user) {
+      // Save token + user in localStorage
+      localStorage.setItem('token', JSON.stringify({
+        access_token: data.access_token,
+        token_type: data.token_type
+      }));
+      localStorage.setItem('user', JSON.stringify(data.user));
+
+      // ✅ Success modal + redirect
+      showModal('Success', 'Login successful.', true);
+
+    } else {
+      // ---------- Backend Errors (modal only) ----------
+      if (typeof data.detail === "string") {
+        if (data.detail.toLowerCase().includes("invalid email or password")) {
+          showModal('Login Failed', 'Invalid email or password');
+        } else {
+          showModal('Login Failed', data.detail);
+        }
+      } else if (data.message) {
+        showModal('Login Failed', data.message);
+      } else {
+        showModal('Login Failed', 'Please try again.');
+      }
+    }
+  } catch (error) {
+    console.error('Login error:', error);
+    showModal('Error', 'Network error. Please check your connection and try again.');
+  } finally {
+    hideLoadingState();
+  }
+});
+
+</script>
+</body>
+</html>

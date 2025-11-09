@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - TaskHive</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> 
+    <link
+			rel="shortcut icon"
+			href="../../../images/taskhivelogo.svg"
+			type="image/x-icon"
+		/> 
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-blue': '#4F46E5',
+                        'error-red': '#EF4444'
+                    }
+                }
+            }
+        }
+    </script>
+    
+</head>
+<body class="min-h-screen bg-gray-100 flex items-center justify-center overflow-hidden">
+    <!-- Background Illustration -->
+        <div class="absolute pointer-events-none flex items-center justify-center">
+            <img src="../../../Assets/background-image.svg" alt="background-image">
+    </div>
+    <!-- Main Content -->
+    <div class="relative">
+        <!-- Main Card -->
+        <div class="bg-white rounded-2xl shadow-lg px-10 py-5">
+            <!-- Header -->
+            <h1 class="text-4xl font-bold text-center text-dark mb-8">Get more done, faster!</h1>
+            
+            <!-- Google Sign In Button -->
+            <button class="w-full flex items-center justify-center gap-2 bg-white border border-gray-300 rounded-lg py-3 px-12 text-gray-700 font-medium hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors mb-7">
+            <img src="../../../Assets/Google-logo.svg" alt="Google-logo"> Continue with Google </button>
+        
+
+            <!-- Divider -->
+            <div class="relative mb-6">
+                <div class="absolute inset-0 flex items-center">
+                    <div class="w-full border-t border-gray-300"></div>
+                </div>
+                <div class="relative flex justify-center text-sm">
+                    <span class="px-2 bg-white text-gray-500">Or</span>
+                </div>
+            </div>
+            
+            
+            <!-- Form -->
+            <form id="signupForm" novalidate>
+                <!-- Full Name Field -->
+                <div class="mb-4">
+                    <label for="fullName" class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <img src="../../../Assets/name-icon.svg" alt="name-icon">
+                        </div>
+                        <input 
+                            type="text" 
+                            id="fullName" 
+                            name="fullName"
+                            class="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            placeholder="Enter Full Name"
+                        >
+                    </div>
+                </div>
+                
+                <!-- Email Field -->
+                <div class="mb-4">
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-2" id="emailLabel">Email</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <img src="../../../Assets/email-icon.svg" alt="email-icon">
+                        </div>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email"
+                            class="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            placeholder="Enter Email Address"
+                        >
+                    </div>
+                    <div id="emailError" class="hidden mt-2 flex items-center gap-2 text-error-red text-sm">
+                        <img src="../../../Assets/error-warning.svg" alt="error-warning">
+                        <span>The Email Address is Incorrect!</span>
+                    </div>
+                </div>
+                
+                <!-- Password Field -->
+                <div class="mb-4">
+                    <label for="password" class="block text-sm font-medium text-gray-700 mb-2" id="passwordLabel">Choose Password</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <img src="../../../Assets/password-icon.svg" alt="password-icon">
+                        </div>
+                        <input 
+                            type="password" 
+                            id="password" 
+                            name="password"
+                            class="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            placeholder="Must be minimum of 8 characters">
+
+                <!--  Added eye toggle button for password visibility -->
+                        <button 
+                            type="button" 
+                            id="togglePassword"
+                            class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 focus:outline-none"
+                        >
+                            <!-- Eye closed icon (default) -->
+                            <svg id="eyeClosedPassword" class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"/>
+                            </svg>
+                            <!-- Eye open icon (hidden by default) -->
+                            <svg id="eyeOpenPassword" class="h-5 w-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                            </svg>
+                        </button>
+
+
+                            
+                    </div>
+                    <div id="passwordError" class="hidden mt-2 flex items-center gap-2 text-error-red text-sm">
+                        <img src="../../../Assets/error-warning.svg" alt="error-warning">
+                        <span>Weak Password!</span>
+                    </div>
+                </div>
+                
+                <!-- Confirm Password Field -->
+                <div class="mb-6">
+                    <label for="confirmPassword" class="block text-sm font-medium text-gray-700 mb-2" id="confirmPasswordLabel">Confirm Password</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <img src="../../../Assets/password-icon.svg" alt="password-icon">
+                        </div>
+                        <input 
+                            type="password" 
+                            id="confirmPassword" 
+                            name="confirmPassword"
+                            class="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            placeholder="Enter same password above">
+
+                <!--  Added eye toggle button for confirm password visibility -->
+                        <button 
+                            type="button" 
+                            id="toggleConfirmPassword"
+                            class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 focus:outline-none"
+                        >
+                            <!-- Eye closed icon (default) -->
+                            <svg id="eyeClosedConfirmPassword" class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"/>
+                            </svg>
+                            <!-- Eye open icon (hidden by default) -->
+                            <svg id="eyeOpenConfirmPassword" class="h-5 w-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                            </svg>
+                        </button>
+                            
+                    </div>
+                    <div id="confirmPasswordError" class="hidden mt-2 flex items-center gap-2 text-error-red text-sm">
+                        <img src="../../../Assets/error-warning.svg" alt="error-warning">
+                        <span>Wrong Password! Enter same password as above</span>
+                    </div>
+                </div>
+                
+
+                <!-- Sign Up Button -->
+                <!--  Added loading state and API integration to signup button -->
+                <button 
+                    type="submit" 
+                    id="signupButton"
+                    class="w-full bg-blue-600 text-white font-medium py-3 px-4 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-brand-blue focus:ring-offset-2 transition-colors mb-4 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                >
+                    <!-- Loading spinner (hidden by default) -->
+                    <svg id="loadingSpinner" class="hidden animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <span id="buttonText">Sign up</span>
+                </button>
+
+                <p class="text-center text-gray-700 mb-4 gap-5">
+                Already have an account?
+                <a href="../../html/auth/login.html" class="text-blue-600 hover:text-blue-500 font-semibold text-lg gap-2">Login</a>
+                </p>
+
+            </form>
+            
+            <!-- Terms and Privacy -->
+            <p class="text-center text-sm text-gray-600 mb-6">
+                By clicking the button above, you agree to our 
+                <a href="../others/terms.html" class="text-gray-800 underline hover:text-gray-900">Terms of Service</a>
+                and 
+                <a href="../others/privacy.html" class="text-gray-800 underline hover:text-gray-900">Privacy Policy</a>
+            </p>
+            
+            <!-- Footer -->
+            <div class="flex items-center justify-center gap-2 text-gray-600 flex items-center justify-center">
+                <img src="../../../Assets/logo.svg" alt="taskhive-logo">
+                <span>The one stop app for work</span>
+            </div>
+        </div>
+    </div>
+
+<!-- Modal -->
+<div id="modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+  <div id="modalBox" class="bg-white rounded-xl shadow-lg p-6 w-80 text-center">
+    <h2 id="modalTitle" class="text-lg font-semibold mb-2"></h2>
+    <p id="modalMessage" class="mb-4"></p>
+    <button id="modalClose" class="px-4 py-2 rounded-lg text-white">OK</button>
+  </div>
+</div>
+
+
+
+<script>
+  // ---------- Elements ----------
+  const form = document.getElementById('signupForm');
+  const fullNameInput = document.getElementById('fullName');
+  const emailInput = document.getElementById('email');
+  const passwordInput = document.getElementById('password');
+  const confirmPasswordInput = document.getElementById('confirmPassword');
+
+  const emailError = document.getElementById('emailError');
+  const passwordError = document.getElementById('passwordError');
+  const confirmPasswordError = document.getElementById('confirmPasswordError');
+
+  const emailLabel = document.getElementById('emailLabel');
+  const passwordLabel = document.getElementById('passwordLabel');
+  const confirmPasswordLabel = document.getElementById('confirmPasswordLabel');
+
+  // password toggle elements (may be null if not present)
+  const togglePasswordBtn = document.getElementById('togglePassword');
+  const toggleConfirmPasswordBtn = document.getElementById('toggleConfirmPassword');
+  const eyeClosedPassword = document.getElementById('eyeClosedPassword');
+  const eyeOpenPassword = document.getElementById('eyeOpenPassword');
+  const eyeClosedConfirmPassword = document.getElementById('eyeClosedConfirmPassword');
+  const eyeOpenConfirmPassword = document.getElementById('eyeOpenConfirmPassword');
+
+  // modal elements (if you added modal markup)
+  const modal = document.getElementById('modal');
+  const modalBox = document.getElementById('modalBox');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalMessage = document.getElementById('modalMessage');
+  const modalClose = document.getElementById('modalClose');
+
+  // button + loader
+  const signupButton = document.getElementById('signupButton');
+  const loadingSpinner = document.getElementById('loadingSpinner');
+  const buttonText = document.getElementById('buttonText');
+
+  // ---------- Validation helpers ----------
+  function validateEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+  function validatePassword(password) {
+    return password.length >= 8;
+  }
+  function validateConfirmPassword(password, confirmPassword) {
+    return password === confirmPassword && password.length > 0;
+  }
+
+  // ---------- Show / hide error UI ----------
+  function showError(input, errorElement, label, errorMessage) {
+    if (input) {
+      input.classList.remove('border-gray-300', 'focus:ring-brand-blue');
+      input.classList.add('border-error-red', 'focus:ring-error-red');
+    }
+    if (label) label.classList.add('text-error-red');
+    if (errorElement) {
+      errorElement.classList.remove('hidden');
+      const sp = errorElement.querySelector('span');
+      if (sp) sp.textContent = errorMessage;
+    }
+  }
+
+  function hideError(input, errorElement, label) {
+    if (input) {
+      input.classList.remove('border-error-red', 'focus:ring-error-red');
+      input.classList.add('border-gray-300', 'focus:ring-brand-blue');
+    }
+    if (label) label.classList.remove('text-error-red');
+    if (errorElement) errorElement.classList.add('hidden');
+  }
+
+  // ---------- Real-time validation listeners ----------
+  if (emailInput) {
+    emailInput.addEventListener('blur', function() {
+      const email = this.value.trim();
+      if (email && !validateEmail(email)) {
+        showError(emailInput, emailError, emailLabel, 'The Email Address is Incorrect!');
+      } else {
+        hideError(emailInput, emailError, emailLabel);
+      }
+    });
+
+    emailInput.addEventListener('input', function() {
+      const email = this.value.trim();
+      if (email && validateEmail(email)) hideError(emailInput, emailError, emailLabel);
+
+      emailInput.addEventListener('input', function () {
+  const email = this.value.trim();
+  if (email && validateEmail(email)) {
+    hideError(emailInput, emailError, emailLabel);
+  }
+});
+
+    });
+  }
+
+  if (passwordInput) {
+    passwordInput.addEventListener('blur', function() {
+      const password = this.value;
+      if (password && !validatePassword(password)) {
+        showError(passwordInput, passwordError, passwordLabel, 'Weak Password!');
+      } else {
+        hideError(passwordInput, passwordError, passwordLabel);
+      }
+    });
+
+    passwordInput.addEventListener('input', function() {
+      const password = this.value;
+      if (password && validatePassword(password)) hideError(passwordInput, passwordError, passwordLabel);
+
+      const confirmPassword = confirmPasswordInput ? confirmPasswordInput.value : '';
+      if (confirmPassword) {
+        if (validateConfirmPassword(password, confirmPassword)) {
+          hideError(confirmPasswordInput, confirmPasswordError, confirmPasswordLabel);
+        } else {
+          showError(confirmPasswordInput, confirmPasswordError, confirmPasswordLabel, 'Wrong Password! Enter same password as above');
+        }
+      }
+    });
+  }
+
+  if (confirmPasswordInput) {
+    confirmPasswordInput.addEventListener('blur', function() {
+      const password = passwordInput ? passwordInput.value : '';
+      const confirmPassword = this.value;
+      if (confirmPassword && !validateConfirmPassword(password, confirmPassword)) {
+        showError(confirmPasswordInput, confirmPasswordError, confirmPasswordLabel, 'Wrong Password! Enter same password as above');
+      } else if (confirmPassword) {
+        hideError(confirmPasswordInput, confirmPasswordError, confirmPasswordLabel);
+      }
+    });
+
+    confirmPasswordInput.addEventListener('input', function() {
+      const password = passwordInput ? passwordInput.value : '';
+      const confirmPassword = this.value;
+      if (confirmPassword && validateConfirmPassword(password, confirmPassword)) {
+        hideError(confirmPasswordInput, confirmPasswordError, confirmPasswordLabel);
+      }
+    });
+  }
+
+  // ---------- Loading state ----------
+  function showLoadingState() {
+    if (signupButton) signupButton.disabled = true;
+    if (loadingSpinner) loadingSpinner.classList.remove('hidden');
+    if (buttonText) buttonText.textContent = 'Signing up...';
+  }
+  function hideLoadingState() {
+    if (signupButton) signupButton.disabled = false;
+    if (loadingSpinner) loadingSpinner.classList.add('hidden');
+    if (buttonText) buttonText.textContent = 'Sign up';
+  }
+
+  // ---------- Modal (success/error) ----------
+  function showModal(title, message, type = 'error', redirect = false) {
+    if (!modal || !modalBox || !modalTitle || !modalMessage || !modalClose) {
+      // fallback to alert if modal markup not present
+      alert(title + '\n' + message);
+        if (redirect) window.location.href = '../../html/auth/login.html';
+      return;
+    }
+
+    modalTitle.textContent = title;
+    modalMessage.textContent = message;
+
+    // reset classes
+    // modalBox.className = "bg-white rounded-xl shadow-lg p-6 w-80 text-center";
+    modalTitle.className = "text-lg font-semibold mb-2";
+    modalMessage.className = "mb-4";
+    modalClose.className = "px-4 py-2 rounded-lg text-white";
+
+    if (type === 'success') {
+    //   modalBox.classList.add("border", "border-green-500");
+      modalTitle.classList.add("text-dark");
+      modalMessage.classList.add("text-gray-600");
+      modalClose.classList.add("bg-blue-600", "hover:bg-blue-500");
+    } else {
+    //   modalBox.classList.add("border", "border-red-500");
+      modalTitle.classList.add("text-red-600");
+      modalMessage.classList.add("text-red-500");
+      modalClose.classList.add("bg-red-600", "hover:bg-red-700");
+    }
+
+    modal.classList.remove('hidden');
+
+    modalClose.onclick = () => {
+      modal.classList.add('hidden');
+        if (redirect) window.location.href = '../../html/auth/login.html';
+    };
+  }
+
+  // allow clicking outside modal to close (optional)
+  if (modal) {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) modal.classList.add('hidden');
+    });
+  }
+
+  // ---------- Fixed & robust toggle function ----------
+  function togglePasswordVisibility(inputElement, eyeClosedElement, eyeOpenElement) {
+    if (!inputElement) return;
+    const wasPassword = inputElement.type === 'password';
+    if (wasPassword) {
+      inputElement.type = 'text';
+      if (eyeClosedElement) eyeClosedElement.classList.add('hidden');
+      if (eyeOpenElement) eyeOpenElement.classList.remove('hidden');
+    } else {
+      inputElement.type = 'password';
+      if (eyeClosedElement) eyeClosedElement.classList.remove('hidden');
+      if (eyeOpenElement) eyeOpenElement.classList.add('hidden');
+    }
+    // move focus back to the input so keyboard users keep context
+    inputElement.focus();
+  }
+
+  // Attach toggle listeners (defensive, prevent accidental form submit)
+  if (togglePasswordBtn) {
+    togglePasswordBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      togglePasswordVisibility(passwordInput, eyeClosedPassword, eyeOpenPassword);
+    });
+    togglePasswordBtn.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        togglePasswordVisibility(passwordInput, eyeClosedPassword, eyeOpenPassword);
+      }
+    });
+  } else {
+    console.warn('togglePasswordBtn not found — password eye toggle not attached.');
+  }
+
+  if (toggleConfirmPasswordBtn) {
+    toggleConfirmPasswordBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      togglePasswordVisibility(confirmPasswordInput, eyeClosedConfirmPassword, eyeOpenConfirmPassword);
+    });
+    toggleConfirmPasswordBtn.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        togglePasswordVisibility(confirmPasswordInput, eyeClosedConfirmPassword, eyeOpenConfirmPassword);
+      }
+    });
+  } else {
+    console.warn('toggleConfirmPasswordBtn not found — confirm password eye toggle not attached.');
+  }
+
+  // ---------- Form submission & API integration ----------
+  if (form) {
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const fullName = fullNameInput ? fullNameInput.value.trim() : '';
+      const email = emailInput ? emailInput.value.trim() : '';
+      const password = passwordInput ? passwordInput.value : '';
+      const confirmPassword = confirmPasswordInput ? confirmPasswordInput.value : '';
+
+      // Basic validation
+      if (!fullName || !email || !password || !confirmPassword) {
+        showModal('Error', 'Please fill in all fields.', 'error');
+        return;
+      }
+      if (!validateEmail(email)) {
+        showModal('Error', 'Invalid email format.', 'error');
+        return;
+      }
+      if (!validatePassword(password)) {
+        showModal('Error', 'Password must be at least 8 characters.', 'error');
+        return;
+      }
+      if (!validateConfirmPassword(password, confirmPassword)) {
+        showModal('Error', 'Passwords do not match.', 'error');
+        return;
+      }
+
+      showLoadingState();
+
+      const userData = { name: fullName, email, password };
+      
+      
+      
+try {
+  const res = await fetch('https://be.taskmanager.kode.camp/auth/signup', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify(userData)
+  });
+
+  const data = await res.json();
+  console.log("Signup API response:", data);
+
+if (res.ok && data.user) {
+  localStorage.setItem('user', JSON.stringify(data.user));
+  showModal('Success!', 'Sign Up successful.', 'success');
+
+  // 👇 auto-redirect after half secs. (adjust as you like)
+  setTimeout(() => {
+    window.location.href = 'login.html';
+  }, 500);
+
+} else {
+  let handled = false;
+
+  // Case 1: "detail" is an array of field errors
+  if (Array.isArray(data.detail)) {
+    data.detail.forEach(err => {
+      const field = err.loc?.[1];
+      const msg = err.msg || "Invalid input";
+
+      if (field === "email") {
+        showError(emailInput, emailError, emailLabel, "This email is already registered");
+        handled = true;
+      } else if (field === "password") {
+        showError(passwordInput, passwordError, passwordLabel, msg);
+        handled = true;
+      }
+    });
+  }
+
+  // Case 2: "detail" is a string (e.g., "Email already registered")
+  if (!handled && typeof data.detail === "string") {
+    const msg = data.detail.toLowerCase();
+    if (msg.includes("email")) {
+      showError(emailInput, emailError, emailLabel, "This email is already registered");
+      handled = true;
+    }
+  }
+
+  // Case 3: fallback on "message"
+  if (!handled && data.message) {
+    const msg = data.message.toLowerCase();
+    if (msg.includes("email")) {
+      showError(emailInput, emailError, emailLabel, "This email is already registered");
+      handled = true;
+    }
+  }
+
+  // Fallback modal if still unhandled
+  if (!handled) {
+    showModal('Sign Up Failed', data.message || data.detail || 'Please try again.', 'error');
+  }
+}
+
+
+
+} catch (err) {
+  console.error('Signup error:', err);
+  showModal('Error', 'Network error. Please check your connection and try again.', 'error');
+} finally {
+  hideLoadingState();
+}
+
+
+    });
+  } else {
+    console.warn('signup form not found.');
+  }
+</script>
+
+</body>
+</html>

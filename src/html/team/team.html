@@ -1,0 +1,1553 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Teams - TaskHive</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <link
+			rel="shortcut icon"
+			href="../../../images/taskhivelogo.svg"
+			type="image/x-icon"
+		/>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap">
+    <link rel="stylesheet" href="https://use.hugeicons.com/font/icons.css" />
+    <link rel="stylesheet" href="../../css/others/style.css" />
+
+
+    <style>
+        body { font-family: 'Open Sans', sans-serif; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Work Sans', sans-serif; }
+        .modal-backdrop { backdrop-filter: blur(4px); }
+        .team-card { transition: all 0.3s ease; }
+        .team-card:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .member-avatar { transition: transform 0.2s ease; }
+        .member-avatar:hover { transform: scale(1.1); }
+        .fade-in { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .slide-up { animation: slideUp 0.3s ease-out; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Dropdown menu styles */
+        .dropdown-menu {
+            position: absolute;
+            right: 0;
+            top: 100%;
+            margin-top: 0.5rem;
+            background: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            min-width: 180px;
+            z-index: 50;
+            opacity: 0;
+            transform: translateY(-10px);
+            pointer-events: none;
+            transition: all 0.2s ease;
+        }
+        
+        .dropdown-menu.active {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+        
+        .dropdown-item {
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            font-size: 0.875rem;
+        }
+        
+        .dropdown-item:first-child {
+            border-radius: 0.5rem 0.5rem 0 0;
+        }
+        
+        .dropdown-item:last-child {
+            border-radius: 0 0 0.5rem 0.5rem;
+        }
+        
+        .dropdown-item:hover {
+            background-color: #f3f4f6;
+        }
+        
+        .dropdown-item.delete:hover {
+            background-color: #fee;
+            color: #dc2626;
+        }
+        
+        .dropdown-toggle {
+            position: relative;
+        }
+    </style>
+
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#375DFB',
+                        secondary: '#3985f9',
+                        background: '#ffffff',
+                        // foreground: '#3985f9',
+                        // card: 'bg-whi',
+                        // 'card-foreground': '#164e63',
+                        popover: '#ffffff',
+                        'popover-foreground': '#475569',
+                        primary: '#375DFB',
+                        'primary-foreground': '#ffffff',
+                        secondary: '#375DFB',
+                        'secondary-foreground': '#ffffff',
+                        muted: '#ecfeff',
+                        'muted-foreground': '#475569',
+                        accent: '#84cc16',
+                        'accent-foreground': '#ffffff',
+                        destructive: '#e53e3e',
+                        'destructive-foreground': '#ffffff',
+                        border: '#d1d5db',
+                        input: '#f0fdf3',
+                        ring: '#375DFB'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+      :root {
+        --color-dark-blue: #1e3a8a;
+        --color-base-blue: #375DFB;
+        --color-neutral-0: #ffffff;
+      }
+      
+      .menu-item {
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+      
+      .menu-item:hover {
+        background-color: var(--color-base-blue);
+        color: var(--color-neutral-0);
+      }
+      
+      .menu-item:hover .icon-black {
+        display: none;
+      }
+      
+      .menu-item:hover .icon-white {
+        display: inline-block !important;
+      }
+      
+      .search-bar {
+        border: 1px solid #e5e7eb;
+        transition: all 0.3s ease;
+      }
+      
+      .search-bar:focus-within {
+        border-color: var(--color-base-blue);
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+      }
+      
+      #mobileSidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+      }
+      
+      #mobileSidebar:not(.hidden) {
+        transform: translateX(0);
+      }
+      
+      @media (max-width: 640px) {
+        .menu-item {
+          padding: 0.75rem;
+          margin-bottom: 0.5rem;
+          border-radius: 0.5rem;
+        }
+      }
+      
+      @media (min-width: 768px) and (max-width: 1279px) {
+        .tablet-layout {
+          display: flex;
+          flex-direction: column;
+        }
+      }
+
+
+      #emptyState {
+        animation: fadeIn 0.4s ease-in-out;
+      }
+
+
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+    </style>
+  
+</head>
+  <body class="bg-white min-h-screen">
+    <!---------------------- Desktop Layout ------------------------->
+    <div class="xl:flex xl:h-screen" id="desktop-nav">
+      <!-- Sidebar -->
+      <aside id="sidebar" class="hidden xl:block w-64 bg-white shadow-lg p-4 fixed xl:relative h-full xl:h-auto z-40">
+        <div class="logo flex items-center gap-2 mb-6 ps-2">
+          <img src="../../../images/taskhivelogo.svg" alt="TaskHive logo" class="w-7 h-7" />
+          <h1 class="text-2xl font-bold text-[var(--color-dark-blue)]">
+            TaskHive
+          </h1>
+        </div>
+        <nav class="flex flex-col gap-5">
+          <div class="menu-item xl:w-44 xl:px-3 xl:py-2 xl:rounded-xl flex items-center gap-4">
+            <img src="../../../images/category bold-dark.svg" class="icon-black w-5 h-5" alt="" />
+            <img src="../../../images/category bold-white.svg" class="icon-white hidden w-5 h-5" alt="" />
+            <a href="../dashboard/dashboard.html" class="flex items-center text-lg font-awesome"> Dashboard</a>
+          </div>
+
+          <div class="menu-item xl:w-44 xl:px-3 xl:py-2 xl:rounded-xl flex items-center gap-4 xl:ps-2 bg-[var(--color-base-blue)]">
+            <img src="../../../images/team-icon-dark.svg" class="icon-black hidden" alt="" />
+            <img src="../../../images/team-icon-white.svg" class="icon-white" alt="" />
+            <a href="../team/team.html" class="flex items-center text-lg font-awesome text-[var(--color-neutral-0)]">Teams</a>
+          </div>
+
+          <div class="menu-item xl:w-44 xl:px-3 xl:py-2 xl:rounded-xl flex items-center gap-4">
+            <i class="fa-solid fa-project-diagram icon-black text-lg"></i>
+            <i class="fa-solid fa-project-diagram icon-white text-[var(--color-neutral-0)] hidden text-lg"></i>
+
+            <a href="../project/project.html" class="flex items-center text-lg font-awesome">Projects</a>
+          </div>
+
+          <div class="menu-item xl:w-44 xl:px-3 xl:py-2 xl:rounded-xl flex items-center gap-4">
+            <img src="../../../images/Task-Line-dark.svg" class="icon-black w-5 h-5" alt="" />
+            <img src="../../../images/Taskline-white.svg" class="icon-white hidden w-5 h-5" alt="" />
+            <a href="../task/task.html" class="flex items-center text-lg font-awesome">Tasks</a>
+          </div>
+
+          <div class="menu-item xl:w-44 xl:px-3 xl:py-2 xl:rounded-xl flex items-center gap-4">
+            <i class="hgi hgi-stroke hgi-notification-01 icon-black text-lg"></i>
+            <i class="hgi hgi-stroke hgi-notification-01 icon-white text-[var(--color-neutral-0)] hidden text-lg"></i>
+            <a href="../others/notification.html" class="flex items-center text-lg font-awesome">Notifications</a>
+          </div>
+
+          <div class="menu-item xl:w-44 xl:px-3 xl:py-2 xl:rounded-xl flex items-center gap-4">
+            <i class="hgi hgi-stroke hgi-settings-02 icon-black text-lg"></i>
+            <i class="hgi hgi-stroke hgi-settings-02 icon-white text-[var(--color-neutral-0)] hidden text-lg"></i>
+            <a href="../setting/settings.html" class="flex items-center text-lg font-awesome">Settings</a>
+          </div>
+
+          <div class="menu-item xl:w-44 xl:px-3 xl:py-2 xl:rounded-xl flex items-center gap-4">
+            <i class="hgi hgi-stroke hgi-logout-circle-02 icon-black text-lg"></i>
+            <i class="hgi hgi-stroke hgi-logout-circle-02 icon-white text-[var(--color-neutral-0)] hidden text-lg"></i>
+            <a href="#" class="signOutBtn flex items-center text-lg font-awesome">Sign Out</a>
+          </div>
+        </nav>
+      </aside>
+
+      <!------------------- Main Content ---------------------->
+      <div class="flex-1 flex flex-col xl:ml-0">
+        <!-- Desktop Header -->
+        <header class="h-20 hidden xl:flex items-center justify-between px-6 bg-white shadow-sm sticky top-0 z-40">
+
+          <div class="flex items-center gap-4">
+            <img
+              src="../../../images/Avatarbrown.svg"
+              class="w-12 h-12 rounded-full object-cover"
+              alt="User Avatar"
+              id="avatar"
+            />
+          
+            <div><h2 class="font-semibold text-4xl md:text-xl">
+                <span id="username"></span>
+              </h2>
+              <p class="text-sm md:text-base text-gray-600 hidden lg:block">
+                Welcome back to TaskHive 👋🏻
+              </p></div>
+        
+          </div>
+        
+
+    <!---------- Search + Notification + Create Team ------------>
+          <div class="flex gap-3 items-center">
+          <div class="flex gap-2 items-center flex-wrap">
+
+            <!-- <div
+              class="flex search-bar h-8 w-full md:w-64 px-2 py-1 rounded-full border hidden"
+              id="search-bar"
+            >
+              <input
+                type="text"
+                placeholder="Search task"
+                id="search-input"
+                class="w-full h-full outline-none bg-transparent focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+              />
+            </div>
+
+            <div class="flex items-center gap-4 hidden md:flex">
+              <img
+                src="../../../images/search-2-line.svg"
+                id="search-img"
+                alt="Search"
+              /> -->
+              <div>
+              <a href="../../html/others/notification.html">
+                <img
+                  src="../../../images/Topbar%20Item%20Button%20%5BTopbar%5D%20%5B1.0%5D.svg"
+                  alt="Topbar action"
+              /></a>
+            </div>
+
+              <button id="addTeamBtn2" class="bg-primary px-4 py-2 rounded-lg text-2xl md:text-sm font-medium text-white flex items-center gap-2 hidden md:block hover:bg-secondary">
+                <i class="fa-solid fa-plus"></i> Create Team
+            </button>
+
+            </div>
+          </div>
+        </header>
+
+        <!----------------------- Mobile / Tablet Header --------------------------->
+        <header class="p-2 xl:hidden bg-white shadow-sm sticky top-0 z-40">
+          <div class="flex justify-between items-center mb-2"></div>
+            
+            <!-- <div class="flex items-center gap-3">                
+              <img src="images/ta" alt="TaskHive logo" class="w-10 h-10 sm:w-12 sm:h-12" />
+              <h1 class="text-xl sm:text-2xl md:text-3xl font-bold text-[var(--color-dark-blue)]">
+                TaskHive
+              </h1>
+            </div> -->
+
+            <!-- <button class="menuBtn p-2 hover:bg-gray-100 rounded-lg transition-colors">
+              <i class="fa-solid fa-bars text-xl sm:text-2xl md:text-3xl text-gray-700"></i>
+            </button> -->
+          
+
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3 sm:gap-4">
+              <img
+                src="../../../images/Avatarbrown.svg"
+                class="w-12 h-12 sm:w-14 sm:h-14 md:w-15 md:h-15 rounded-full object-cover"
+                alt="User Avatar"
+                id="avatar"
+              />
+              <div>
+                <h2 class="font-semibold text-base sm:text-lg md:text-xl"><span id="usernames"></span></h2>
+                <p class="text-sm md:text-base text-gray-500">Welcome back to TaskHive 👋🏻</p>
+              </div>
+            </div>
+            
+            <!-------------------- Mobile Action Buttons ------------------------------>
+            <div class="flex items-center gap-2 sm:gap-3">
+              
+              
+              <!-- <button class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                <i class="fa-solid fa-search text-gray-600 text-lg"></i>
+              </button> -->
+
+              <button class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                <i class="fa-solid fa-bell text-gray-600 text-lg"></i>
+              </button>
+              
+              <button class="menuBtn p-2 hover:bg-gray-100 rounded-lg transition-colors">
+              <i class="fa-solid fa-bars text-xl sm:text-2xl md:text-3xl text-gray-700"></i>
+            </button>
+          
+              <!-- <button class="flex bg-[var(--color-base-blue)] p-2 sm:px-3 sm:py-2 rounded-lg text-white hover:bg-blue-600 transition-colors">
+                <i class="fa-solid fa-plus"></i>
+                <span class="hidden sm:inline ml-1 text-sm">Create Task</span>
+              </button> -->
+            </div>
+          </div>
+        </header>
+
+
+
+
+
+        <!-------------------Team Content------------------------>
+        <main class="flex-1 p-6 overflow-auto bg-gray-50">
+          <!-- Stats Bar -->
+          <div class="mb-1 flex items-center">
+            <h2 class="text-2xl font-semibold">Teams</h2>
+          </div>
+          <div>
+            <p class="mb-5 text-dark font-awesome">Manage your teams and members.</p>
+          </div>
+
+          <!-- Teams Grid -->
+          <div id="teamsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <!-- Sample Teams (will be populated by JavaScript) -->
+          </div>
+
+          <!-- Empty State -->
+          <div id="emptyState" class="text-center py-16 hidden">
+              <div class="mx-auto w-24 h-24 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+                <i class="fa-solid fa-users text-blue-600 text-4xl"></i>
+                  <!-- <svg class="w-12 h-12 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                  </svg> -->
+              </div>
+
+              <h3 class="text-xl font-semibold text-foreground mb-2">No teams yet</h3>
+              <p class="text-muted-foreground mb-6">Get started by creating your first team.</p>
+              <svg id="loadingSpinner" class="hidden animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+              <button id="addTeamBtn" class="bg-primary hover:bg-primary/80 text-primary-foreground px-6 py-3 rounded-lg font-semibold transition-colors duration-200">
+                  Create Team
+              </button>
+          </div>
+
+          <!-- Add Team Modal -->
+          <div id="addTeamModal" class="fixed inset-0 bg-black/50 modal-backdrop hidden z-50 flex items-center justify-center p-4">
+              <div class="bg-white rounded-xl shadow-2xl w-full max-w-md slide-up">
+                  <div class="p-6 border-b border-gray-200">
+                      <h2 class="text-xl font-semibold text-gray-800">Create New Team</h2>
+                      <p class="text-gray-600 mt-1">Create a Team and add team members</p>
+                  </div>
+                  <form id="addTeamForm" class="p-6 space-y-4">
+                      <div>
+                          <label for="teamName" class="block text-sm font-medium text-gray-700 mb-2">Team Name *</label>
+                          <input type="text" id="teamName" name="teamName" required
+                                 class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                 placeholder="Enter team name">
+                          <div id="teamNameError" class="text-red-500 text-sm mt-1 hidden"></div>
+                      </div>
+                      <div>
+                          <label for="teamDescription" class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                          <textarea id="teamDescription" name="teamDescription" rows="3"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                                    placeholder="Brief description of the team"></textarea>
+                      </div>
+                      <div class="flex justify-end gap-3 pt-4">
+                          <button type="button" id="cancelAddTeam" class="border border-gray-300 rounded-lg px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors">
+                              Cancel
+                          </button>
+                          <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors flex items-center gap-2">
+                              <span id="addTeamButtonText">Create Team</span>
+                              <div id="addTeamSpinner" class="hidden w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                          </button>
+                      </div>
+                  </form>
+              </div>
+          </div>
+
+          <!-- Edit Team Modal -->
+          <div id="editTeamModal" class="fixed inset-0 bg-black/50 modal-backdrop hidden z-50 flex items-center justify-center p-4">
+              <div class="bg-white rounded-xl shadow-2xl w-full max-w-md slide-up">
+                  <div class="p-6 border-b border-gray-200">
+                      <h2 class="text-xl font-semibold text-gray-800">Edit Team</h2>
+                      <p class="text-gray-600 mt-1">Update team information</p>
+                  </div>
+                  <form id="editTeamForm" class="p-6 space-y-4">
+                      <div>
+                          <label for="editTeamName" class="block text-sm font-medium text-gray-700 mb-2">Team Name *</label>
+                          <input type="text" id="editTeamName" name="editTeamName" required
+                                 class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                 placeholder="Enter team name">
+                          <div id="editTeamNameError" class="text-red-500 text-sm mt-1 hidden"></div>
+                      </div>
+                      <div>
+                          <label for="editTeamDescription" class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                          <textarea id="editTeamDescription" name="editTeamDescription" rows="3"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                                    placeholder="Brief description of the team"></textarea>
+                      </div>
+                      <div class="flex justify-end gap-3 pt-4">
+                          <button type="button" id="cancelEditTeam" class="border border-gray-300 rounded-lg px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors">
+                              Cancel
+                          </button>
+                          <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors flex items-center gap-2">
+                              <span id="editTeamButtonText">Update Team</span>
+                              <div id="editTeamSpinner" class="hidden w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                          </button>
+                      </div>
+                  </form>
+              </div>
+          </div>
+
+          <!-- Add Members Modal -->
+          <div id="addMembersModal" class="fixed inset-0 bg-black/50 modal-backdrop hidden z-50 flex items-center justify-center p-4">
+              <div class="bg-popover rounded-xl shadow-2xl w-full max-w-lg slide-up">
+                  <div class="p-6 border-b border-border">
+                      <h2 class="text-xl font-semibold text-popover-foreground">Add Team Members</h2>
+                      <p class="text-muted-foreground mt-1">Select members to add to <span id="currentTeamName" class="font-medium"></span></p>
+                  </div>
+                  <div class="p-6">
+                      <!-- Search -->
+                      <div class="mb-4">
+                          <input type="text" id="memberSearch"
+                                 class="w-full px-3 py-2 border border-border rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                 placeholder="Search members...">
+                      </div>
+
+                      <!-- Available Members -->
+                      <div class="space-y-2 max-h-64 overflow-y-auto" id="availableMembers">
+                          <!-- Members will be populated by JavaScript -->
+                      </div>
+
+                      <div class="flex justify-end gap-3 pt-6 border-t border-border mt-6">
+                          <button type="button" id="cancelAddMembers" class="border border-primary rounded-lg px-4 py-2 text-primary transition-colors">
+                              Cancel
+                          </button>
+                          <button type="button" id="confirmAddMembers" class="bg-primary hover:bg-primary/80 text-accent-foreground px-6 py-2 rounded-lg font-semibold transition-colors">
+                              Add Selected
+                          </button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <!-- Invite Member Modal -->
+          <div id="inviteMemberModal" class="fixed inset-0 bg-black/50 modal-backdrop hidden z-50 flex items-center justify-center p-4">
+              <div class="bg-white rounded-xl shadow-2xl w-full max-w-lg slide-up">
+                  <div class="p-6 border-b border-gray-200">
+                      <h2 class="text-xl font-semibold text-gray-800">Invite Team Member</h2>
+                      <p class="text-gray-600 mt-1">Invite a user to join <span id="inviteTeamName" class="font-medium"></span> by email</p>
+                  </div>
+                  <div class="p-6">
+                      <form id="inviteMemberForm">
+                          <div class="mb-4">
+                              <label for="memberEmail" class="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
+                              <input type="email" id="memberEmail" name="email" required
+                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                     placeholder="user@example.com">
+                              <div id="emailError" class="text-red-500 text-sm mt-1 hidden"></div>
+                          </div>
+
+                          <div class="flex justify-end gap-3 pt-4">
+                              <button type="button" id="cancelInviteMember" class="border border-gray-300 rounded-lg px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors">
+                                  Cancel
+                              </button>
+                              <button type="submit" id="confirmInviteMember" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors flex items-center gap-2">
+                                  <span id="inviteMemberButtonText">Send Invitation</span>
+                                  <div id="inviteMemberSpinner" class="hidden w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                              </button>
+                          </div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+
+          <!-- View Team Members Modal -->
+          <div id="viewMembersModal" class="fixed inset-0 bg-black/50 modal-backdrop hidden z-50 flex items-center justify-center p-4">
+              <div class="bg-popover rounded-xl shadow-2xl w-full max-w-2xl slide-up">
+                  <div class="p-6 border-b border-border">
+                      <h2 class="text-xl font-semibold text-popover-foreground">Team Members</h2>
+                      <p class="text-muted-foreground mt-1"><span id="viewTeamName" class="font-medium"></span> • <span id="memberCount"></span> members</p>
+                  </div>
+                  <div class="p-6">
+                      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="teamMembersList">
+                          <!-- Team members will be populated by JavaScript -->
+                      </div>
+
+                      <div class="flex justify-between items-center pt-6 border-t border-border mt-6">
+                          <button type="button" id="addMoreMembers" class="bg-primary hover:bg-primary/80 text-white px-4 py-2 rounded-lg font-semibold transition-colors flex items-center gap-2">
+                              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                              </svg>
+                              Add Members
+                          </button>
+                          <button type="button" id="closeViewMembers" class="border border-primary rounded-lg px-4 py-2 text-primary hover:text-foreground transition-colors">
+                              Close
+                          </button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <!-- Delete Confirmation Modal -->
+          <div id="deleteModal" class="fixed inset-0 bg-black/50 modal-backdrop hidden z-50 flex items-center justify-center p-4">
+              <div class="bg-white rounded-xl shadow-2xl w-full max-w-md slide-up">
+                  <div class="p-6">
+                      <div class="mb-4 flex justify-center">
+                          <div class="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center">
+                              <i class="fa-solid fa-trash text-red-600 text-xl"></i>
+                          </div>
+                      </div>
+                      <h3 class="text-xl font-semibold text-gray-800 mb-2 text-center">Delete Team</h3>
+                      <p class="text-gray-600 mb-6 text-center">
+                          Are you sure you want to delete "<span id="deleteTeamName" class="font-semibold"></span>"? This action cannot be undone.
+                      </p>
+                      <div class="flex gap-3">
+                          <button type="button" id="cancelDelete" class="flex-1 border border-gray-300 rounded-lg px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors">
+                              Cancel
+                          </button>
+                          <button type="button" id="confirmDelete" class="flex-1 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2">
+                              <span id="deleteTeamButtonText">Delete</span>
+                              <div id="deleteTeamSpinner" class="hidden w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                          </button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+
+
+
+<!------------------- Mobile Sidebar ---------------------------->
+    <div
+      id="mobileSidebar"
+      class="fixed inset-0 bg-[var(--color-neutral-0)] z-50 hidden flex-col p-6 overflow-y-auto"
+    >
+
+    <div class="flex justify-between items-center mb-8">
+        <div class="flex items-center gap-2">
+          <img src="../../../images/taskhivelogo.svg" class="w-7 h-7" alt="" />
+          <h2 class="text-2xl sm:text-2xl font-bold text-[var(--color-dark-blue)]">
+            TaskHive
+          </h2>
+        </div>
+        
+      
+      <div>
+
+        <!-- <button class="bg-[var(--color-base-blue)] p-2 sm:px-3 sm:py-2 rounded-lg text-white hover:bg-blue-600 transition-colors">
+                <i class="fa-solid fa-plus"></i>
+                <span class="sm:inline ml-1 text-sm">Create Task</span>
+              </button> -->
+
+              
+              <!-- <button class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                <i class="fa-solid fa-search text-gray-600 text-lg"></i>
+              </button> -->
+
+
+        <button id="closeBtn" class="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+          <i class="fa-solid fa-xmark text-2xl sm:text-xl text-gray-700"></i>
+        </button>
+      </div>
+      </div>
+
+      <nav class="flex flex-col gap-4 sm:gap-6">
+        <a href="../dashboard/dashboard.html" class="flex items-center text-lg sm:text-xl py-3 px-4 rounded-lg hover:bg-gray-200 transition-colors">
+          <i class="fa-solid fa-chart-line mr-4 text-[var(--color-base-blue)]"></i>
+          Dashboard
+        </a>
+        <a href="../team/team.html" class="flex items-center text-lg sm:text-xl py-3 px-4 rounded-lg hover:bg-gray-200 transition-colors">
+          <i class="fa-solid fa-users mr-4 text-[var(--color-base-blue)]"></i>
+          Teams
+        </a>
+        <a href="../project/project.html" class="flex items-center text-lg sm:text-xl py-3 px-4 rounded-lg hover:bg-gray-200 transition-colors">
+          <i class="fa-solid fa-project-diagram mr-4 text-[var(--color-base-blue)]"></i>
+          Projects
+        </a>
+        <a href="../task/task.html" class="flex items-center text-lg sm:text-xl py-3 px-4 rounded-lg hover:bg-gray-200 transition-colors">
+          <i class="fa-solid fa-tasks mr-4 text-[var(--color-base-blue)]"></i>
+          Tasks
+        </a>
+        <a href="../others/notification.html" class="flex items-center text-lg sm:text-xl py-3 px-4 rounded-lg hover:bg-gray-200 transition-colors">
+          <i class="fa-solid fa-bell mr-4 text-[var(--color-base-blue)]"></i>
+          Notifications
+        </a>
+        <a href="../setting/settings.html" class="flex items-center text-lg sm:text-xl py-3 px-4 rounded-lg hover:bg-gray-200 transition-colors">
+          <i class="fa-solid fa-cog mr-4 text-[var(--color-base-blue)]"></i>
+          Settings
+        </a>
+        <a href="#" class="signOutBtn flex items-center text-lg sm:text-xl py-3 px-4 rounded-lg hover:bg-gray-200 transition-colors">
+          <i class="fa-solid fa-sign-out-alt mr-4 text-red-600"></i>
+          Sign Out
+        </a>
+      </nav>
+    </div>
+    
+    <!-- Signout Modal -->
+    <div
+      id="signOutModal"
+      class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 p-4"
+    >
+      <div class="bg-white p-6 sm:p-8 rounded-lg shadow-xl w-full max-w-sm sm:max-w-md text-center transform transition-all">
+        <div class="mb-6">
+          <i class="hgi hgi-stroke hgi-logout-circle-01 text-4xl sm:text-5xl text-red-600"></i>
+        </div>
+        <h3 class="text-lg sm:text-xl font-semibold text-gray-800 mb-2">Sign Out</h3>
+        <p class="text-sm sm:text-base text-gray-600 mb-8">
+          Are you sure you want to sign out of your account?
+        </p>
+        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+          <button
+            id="cancelSignout"
+            class="px-6 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors font-medium"
+          >
+            Cancel
+          </button>
+          <button
+            id="confirmSignOut"
+            class="px-6 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition-colors font-medium"
+          >
+            Sign Out
+          </button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Notification Modal -->
+    <div id="notificationModal" class="fixed inset-0 bg-black/50 modal-backdrop hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-md slide-up">
+            <div class="p-6 text-center">
+                <div id="notificationIcon" class="mb-4 flex justify-center">
+                     Icon will be inserted here 
+                </div>
+                <h3 id="notificationTitle" class="text-xl font-semibold text-gray-800 mb-2"></h3>
+                <p id="notificationMessage" class="text-gray-600 mb-6"></p>
+                <button id="closeNotificationModal"
+                        class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors w-full">
+                    OK
+                </button>
+            </div>
+        </div>
+    </div>
+    
+
+
+    <script>
+        // Modal elements
+        const modal = document.getElementById('modal');
+        const modalBox = document.getElementById('modalBox');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalMessage = document.getElementById('modalMessage');
+        const modalClose = document.getElementById('modalClose');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+
+        // Team data variables
+        let teamavailable;
+        let teamData;
+        let loadingteamdata = false;
+        let currentTeamId = null;
+        let selectedMembers = [];
+
+        const tokenData = JSON.parse(localStorage.getItem("token"));
+        const userData = JSON.parse(localStorage.getItem("user"));
+
+        // DOM Elements
+        const addTeamBtn = document.getElementById('addTeamBtn');
+        const addTeamBtn2 = document.getElementById('addTeamBtn2');
+        const addTeamModal = document.getElementById('addTeamModal');
+        const editTeamModal = document.getElementById('editTeamModal');
+        const inviteMemberModal = document.getElementById('inviteMemberModal');
+        const viewMembersModal = document.getElementById('viewMembersModal');
+        const deleteModal = document.getElementById('deleteModal');
+        const teamsGrid = document.getElementById('teamsGrid');
+        const emptyState = document.getElementById('emptyState');
+
+        function showNotification(type, title, message) {
+            const modal = document.getElementById("notificationModal")
+            const iconContainer = document.getElementById("notificationIcon")
+            const titleElement = document.getElementById("notificationTitle")
+            const messageElement = document.getElementById("notificationMessage")
+
+            // Close other open modals before showing notification
+            const modals = document.querySelectorAll(".fixed.inset-0")
+            modals.forEach((m) => {
+                if (m.id !== "notificationModal" && !m.classList.contains("hidden")) {
+                    m.classList.add("hidden")
+                }
+            })
+
+            // Always bring notification modal to the top
+            modal.style.zIndex = "9999"
+
+            // Set icon based on type
+            if (type === "success") {
+                iconContainer.innerHTML = `
+                    <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center">
+                        <i class="fa-solid fa-check text-green-600 text-2xl"></i>
+                    </div>
+                `
+            } else {
+                iconContainer.innerHTML = `
+                    <div class="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center">
+                        <i class="fa-solid fa-exclamation text-red-600 text-2xl"></i>
+                    </div>
+                `
+            }
+
+            titleElement.textContent = title
+            messageElement.textContent = message
+
+            // Show the notification modal
+            openModal('notificationModal')
+
+            // Reset z-index after modal closes
+            setTimeout(() => {
+                modal.style.zIndex = ""
+            }, 3000)
+        }
+
+        function showModal(title, message, type = 'error', redirect) {
+            showNotification(type, title, message);
+            
+            // Handle redirect if needed
+            if (redirect) {
+                const closeBtn = document.getElementById('closeNotificationModal');
+                closeBtn.onclick = () => {
+                    closeModal('notificationModal');
+                    window.location.href = '../../html/auth/login.html';
+                };
+            }
+        }
+
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+            document.body.style.overflow = 'auto';
+
+            // Reset forms and states
+            if (modalId === 'addTeamModal') {
+                document.getElementById('addTeamForm').reset();
+                document.getElementById('teamNameError').classList.add('hidden');
+            }
+            if (modalId === 'editTeamModal') {
+                document.getElementById('editTeamForm').reset();
+                document.getElementById('editTeamNameError').classList.add('hidden');
+            }
+            if (modalId === 'inviteMemberModal') {
+                document.getElementById('inviteMemberForm').reset();
+                document.getElementById('emailError').classList.add('hidden');
+            }
+            if (modalId === 'notificationModal') {
+                document.getElementById('notificationIcon').innerHTML = ''; // Clear icon
+            }
+        }
+
+        // Team creation
+        function showLoadingState() {
+            const submitBtn = document.querySelector('#addTeamForm button[type="submit"]');
+            const buttonText = document.getElementById('addTeamButtonText');
+            const spinner = document.getElementById('addTeamSpinner');
+            
+            if (submitBtn) submitBtn.disabled = true;
+            if (buttonText) buttonText.textContent = 'Creating...';
+            if (spinner) spinner.classList.remove('hidden');
+        }
+
+        function hideLoadingState() {
+            const submitBtn = document.querySelector('#addTeamForm button[type="submit"]');
+            const buttonText = document.getElementById('addTeamButtonText');
+            const spinner = document.getElementById('addTeamSpinner');
+            
+            if (submitBtn) submitBtn.disabled = false;
+            if (buttonText) buttonText.textContent = 'Create Team';
+            if (spinner) spinner.classList.add('hidden');
+        }
+
+        const handleForm = async (param) => {
+            showLoadingState();
+
+            try {
+                const res = await fetch('https://be.taskmanager.kode.camp/teams/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        "Authorization": `${tokenData.token_type} ${tokenData.access_token}`
+                    },
+                    body: JSON.stringify({name: param.teamName, description: param.teamDescription})
+                });
+
+                const data = await res.json();
+
+                if (res.ok) {
+                    // Store the team ID in localStorage
+                    localStorage.setItem('selectedTeamId', data.id);
+                    localStorage.setItem('selectedTeamName', data.name);
+                    
+                    showNotification('success', 'Success!', 'Team created successfully!');
+                    closeModal('addTeamModal');
+                    
+                    // Check if user came from task page
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const fromTask = urlParams.get('fromTask');
+                    
+                    if (fromTask === 'true') {
+                        // Redirect back to task page with teamCreated parameter
+                        setTimeout(() => {
+                            window.location.href = '../task/task.html?teamCreated=true';
+                        }, 1500);
+                    } else {
+                        // Just refresh the team list
+                        fetchTeam();
+                    }
+                } else {
+                    showNotification('error', 'Team Creation Failed', data.message || 'Team name already exist; Please try again.');
+                }
+            } catch (err) {
+                console.error('Team creation error:', err);
+                showNotification('error', 'Error', 'Network error. Please check your connection and try again.');
+            } finally {
+                hideLoadingState();
+            }
+        }
+
+
+        // Added dropdown toggle functionality
+        function toggleDropdown(teamId, event) {
+            event.stopPropagation();
+            
+            // Close all other dropdowns
+            document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                if (menu.id !== `dropdown-${teamId}`) {
+                    menu.classList.remove('active');
+                }
+            });
+            
+            // Toggle current dropdown
+            const dropdown = document.getElementById(`dropdown-${teamId}`);
+            dropdown.classList.toggle('active');
+        }
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.dropdown-toggle')) {
+                document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                    menu.classList.remove('active');
+                });
+            }
+        });
+
+
+
+        // Team rendering
+        function renderTeams() {
+            if (loadingteamdata) {
+                const skeletonCard = `
+                    <div class="team-card bg-card rounded-xl p-6 border border-border shadow-sm animate-pulse">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <div class="h-4 w-32 bg-gray-200 rounded"></div>
+                                <div class="h-3 w-56 bg-gray-200 rounded mt-2"></div>
+                            </div>
+                            <div class="flex gap-2">
+                                <div class="h-8 w-8 bg-gray-200 rounded"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex -space-x-2">
+                                <div class="w-8 h-8 rounded-full bg-gray-200 border-2 border-background"></div>
+                                <div class="w-8 h-8 rounded-full bg-gray-200 border-2 border-background"></div>
+                                <div class="w-8 h-8 rounded-full bg-gray-200 border-2 border-background"></div>
+                            </div>
+                            <div class="h-4 w-24 bg-gray-200 rounded"></div>
+                        </div>
+                    </div>
+                `;
+                teamsGrid.innerHTML = Array.from({ length: 6 }).map(() => skeletonCard).join('');
+                teamsGrid.classList.remove("hidden");
+                emptyState.classList.add("hidden");
+                return;
+            }
+
+            if (!teamavailable) {
+                teamsGrid.classList.add("hidden");
+                emptyState.classList.remove("hidden");
+                return;
+            }
+
+            teamsGrid.classList.remove("hidden");
+            emptyState.classList.add("hidden");
+
+            // Updated team card rendering with 3-dot menu instead of separate buttons
+            teamsGrid.innerHTML = teamData.map(team => {
+                const members = Array.isArray(team.members) ? team.members : [];
+
+                return `
+                    <div class="team-card bg-card rounded-xl p-6 border border-border shadow-sm">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-lg font-semibold text-primary mb-1">${team.name}</h3>
+                                <p class="text-muted-foreground text-sm">${team.description || 'No description'}</p>
+                            </div>
+                            <div class="flex gap-2">
+                                <button onclick="openAddMembersModal(${team.id})" class="p-2 text-muted-foreground hover:text-primary transition-colors" title="Add Members">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
+                                    </svg>
+                                </button>
+                                
+                                
+                                <div class="dropdown-toggle relative">
+                                    <button onclick="toggleDropdown(${team.id}, event)" class="p-2 text-muted-foreground hover:text-primary transition-colors" title="More options">
+                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                            <circle cx="12" cy="5" r="2"></circle>
+                                            <circle cx="12" cy="12" r="2"></circle>
+                                            <circle cx="12" cy="19" r="2"></circle>
+                                        </svg>
+                                    </button>
+                                    <div id="dropdown-${team.id}" class="dropdown-menu">
+                                        <div class="dropdown-item" onclick="openEditModal(${team.id})">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                            </svg>
+                                            <span>Edit Team</span>
+                                        </div>
+                                        <div class="dropdown-item delete" onclick="openDeleteModal(${team.id})">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                            </svg>
+                                            <span>Delete Team</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex -space-x-2">
+                                ${members.slice(0, 4).map(member => `
+                                    <img src="${member.avatar || 'https://via.placeholder.com/32x32?text=' + (member.name ? member.name.charAt(0) : '?')}" alt="${member.name || 'Unknown'}"
+                                         class="member-avatar w-8 h-8 rounded-full border-2 border-background object-cover"
+                                         title="${member.name || 'Unknown'}">
+                                `).join('')}
+                                ${members.length > 4 ? `
+                                    <div class="w-8 h-8 rounded-full bg-muted border-2 border-background flex items-center justify-center text-sm font-medium text-muted-foreground">
+                                        +${members.length - 4}
+                                    </div>
+                                ` : ''}
+                            </div>
+                            <button onclick="openViewMembersModal(${team.id}, '${team.name}')" class="text-sm text-primary hover:text-primary/80 font-small transition-colors">
+                                Team members (${team.member_count || members.length})
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Fetch teams from API
+        async function fetchTeam() {
+            loadingteamdata = true;
+            renderTeams();
+
+            if (!tokenData || !tokenData.access_token) {
+                console.error("No token found, redirecting to login...");
+                window.location.href = "login.html";
+                return;
+            }
+
+            try {
+                const res = await fetch("https://be.taskmanager.kode.camp/teams/", {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `${tokenData.token_type} ${tokenData.access_token}`
+                    }
+                });
+
+                const data = await res.json();
+                if (res.ok) {
+                    if(data.length === 0){
+                        teamavailable = false;
+                    }else{
+                        teamavailable = true;
+                        teamData = data;
+                        console.log("Fetched teams:", teamData);
+                    }
+                } else {
+                    console.error("Failed to fetch teams:", res.status, data);
+                    teamavailable = false;
+                    showModal('Error', data?.detail || 'Network error. Please check your connection and try again.', 'error', true);
+                }
+            } catch (err) {
+                console.error("Error fetching teams:", err);
+                teamavailable = false;
+                showModal('Error', err?.detail || 'Network error. Please check your connection and try again.', 'error', true);
+            } finally {
+                loadingteamdata = false;
+                renderTeams();
+            }
+        }
+
+        // Add member modal functions
+        function openAddMembersModal(teamId) {
+            currentTeamId = teamId;
+            const team = teamData.find(t => t.id === teamId);
+            document.getElementById('inviteTeamName').textContent = team ? team.name : 'Team';
+
+            // Reset form
+            document.getElementById('inviteMemberForm').reset();
+            document.getElementById('emailError').classList.add('hidden');
+
+            openModal('inviteMemberModal');
+        }
+
+        // Handle invite member form submission
+        async function handleInviteMember(e) {
+            e.preventDefault();
+
+            const email = document.getElementById('memberEmail').value.trim();
+            const errorDiv = document.getElementById('emailError');
+            const submitBtn = document.getElementById('confirmInviteMember');
+            const buttonText = document.getElementById('inviteMemberButtonText');
+            const spinner = document.getElementById('inviteMemberSpinner');
+
+            // Validation
+            if (!email) {
+                errorDiv.textContent = 'Email is required';
+                errorDiv.classList.remove('hidden');
+                return;
+            }
+
+            if (!isValidEmail(email)) {
+                errorDiv.textContent = 'Please enter a valid email address';
+                errorDiv.classList.remove('hidden');
+                return;
+            }
+
+            // Show loading state
+            submitBtn.disabled = true;
+            buttonText.textContent = 'Sending...';
+            spinner.classList.remove('hidden');
+            errorDiv.classList.add('hidden');
+
+            try {
+                console.log('Sending invite to:', email, 'for team:', currentTeamId);
+                const res = await fetch(`https://be.taskmanager.kode.camp/teams/${currentTeamId}/members`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        "Authorization": `${tokenData.token_type} ${tokenData.access_token}`
+                    },
+                    body: JSON.stringify({ email: email })
+                });
+
+                const data = await res.json();
+                console.log('API Response:', res.status, data);
+
+                if (res.ok) {
+                    showModal('Success', 'Team invitation sent successfully!', 'success', false);
+                    closeModal('inviteMemberModal');
+                    fetchTeam(); // Refresh team data
+                } else {
+                    errorDiv.textContent = data.message || data.detail || 'Failed to send invitation. Please try again.';
+                    errorDiv.classList.remove('hidden');
+                }
+            } catch (err) {
+                console.error('Invite member error:', err);
+                errorDiv.textContent = 'Network error. Please check your connection and try again.';
+                errorDiv.classList.remove('hidden');
+            } finally {
+                // Reset loading state
+                submitBtn.disabled = false;
+                buttonText.textContent = 'Send Invitation';
+                spinner.classList.add('hidden');
+            }
+        }
+
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        function showEditLoadingState() {
+            const submitBtn = document.querySelector('#editTeamForm button[type="submit"]');
+            const buttonText = document.getElementById('editTeamButtonText');
+            const spinner = document.getElementById('editTeamSpinner');
+            
+            if (submitBtn) submitBtn.disabled = true;
+            if (buttonText) buttonText.textContent = 'Updating...';
+            if (spinner) spinner.classList.remove('hidden');
+        }
+
+        function hideEditLoadingState() {
+            const submitBtn = document.querySelector('#editTeamForm button[type="submit"]');
+            const buttonText = document.getElementById('editTeamButtonText');
+            const spinner = document.getElementById('editTeamSpinner');
+            
+            if (submitBtn) submitBtn.disabled = false;
+            if (buttonText) buttonText.textContent = 'Update Team';
+            if (spinner) spinner.classList.add('hidden');
+        }
+
+        function openEditModal(teamId) {
+            currentTeamId = teamId;
+            const team = teamData.find(t => t.id === teamId);
+            
+            if (team) {
+                document.getElementById('editTeamName').value = team.name;
+                document.getElementById('editTeamDescription').value = team.description || '';
+            }
+            
+            // Close dropdown
+            document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                menu.classList.remove('active');
+            });
+            
+            openModal('editTeamModal');
+        }
+
+        async function handleEditTeam(e) {
+            e.preventDefault();
+
+            const teamName = document.getElementById('editTeamName').value.trim();
+            const teamDescription = document.getElementById('editTeamDescription').value.trim();
+            const errorDiv = document.getElementById('editTeamNameError');
+            
+            if (!teamName) {
+                errorDiv.textContent = 'Team name is required';
+                errorDiv.classList.remove('hidden');
+                return;
+            }
+
+            errorDiv.classList.add('hidden');
+            showEditLoadingState();
+
+            try {
+                const res = await fetch(`https://be.taskmanager.kode.camp/teams/${currentTeamId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        "Authorization": `${tokenData.token_type} ${tokenData.access_token}`
+                    },
+                    body: JSON.stringify({
+                        name: teamName,
+                        description: teamDescription
+                    })
+                });
+
+                const data = await res.json();
+
+                if (res.ok) {
+                    showNotification('success', 'Success!', `"${data.name}" updated successfully!`);
+                    closeModal('editTeamModal');
+                    fetchTeam();
+                } else {
+                    showNotification('error', 'Update Failed', data.message || data.detail || 'Failed to update team. Please try again.');
+                }
+            } catch (err) {
+                console.error('Edit team error:', err);
+                showNotification('error', 'Error', 'Network error. Please check your connection and try again.');
+            } finally {
+                hideEditLoadingState();
+            }
+        }
+
+        function handleAddTeam(e) {
+            e.preventDefault();
+
+            const teamName = document.getElementById('teamName').value.trim();
+            const teamDescription = document.getElementById('teamDescription').value.trim();
+            const errorDiv = document.getElementById('teamNameError');
+
+            if (!teamName) {
+                errorDiv.textContent = 'Team name is required';
+                errorDiv.classList.remove('hidden');
+                return;
+            }
+
+            handleForm({teamName, teamDescription});
+            closeModal('addTeamModal');
+        }
+
+        function openViewMembersModal(id, name) {
+            window.location.href = `team-members.html?id=${id}&name=${encodeURIComponent(name)}`;
+        }
+
+        function openDeleteModal(teamId) {
+            currentTeamId = teamId;
+            const team = teamData.find(t => t.id === teamId);
+            
+            if (team) {
+                document.getElementById('deleteTeamName').textContent = team.name;
+            }
+            
+            // Close dropdown
+            document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                menu.classList.remove('active');
+            });
+            
+            openModal('deleteModal');
+        }
+
+        async function handleDeleteTeam() {
+            const submitBtn = document.getElementById('confirmDelete');
+            const buttonText = document.getElementById('deleteTeamButtonText');
+            const spinner = document.getElementById('deleteTeamSpinner');
+
+            // Show loading state
+            submitBtn.disabled = true;
+            buttonText.textContent = 'Deleting...';
+            spinner.classList.remove('hidden');
+
+            try {
+                const res = await fetch(`https://be.taskmanager.kode.camp/teams/${currentTeamId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        "Authorization": `${tokenData.token_type} ${tokenData.access_token}`
+                    }
+                });
+
+                if (res.ok) {
+                    localStorage.removeItem("selectedTeamId");
+                    localStorage.removeItem("selectedTeamName");
+                    showNotification('success', 'Deleted!', 'Team has been deleted successfully.');
+                    closeModal('deleteModal');
+                    fetchTeam();
+                } else {
+                    const data = await res.json();
+                    showNotification('error', 'Error', data.message || data.detail || 'Failed to delete team. Please try again.');
+                }
+            } catch (err) {
+                console.error('Delete team error:', err);
+                showNotification('error', 'Error', 'You cannot delete team with existing Project.');
+            } finally {
+                // Reset loading state
+                submitBtn.disabled = false;
+                buttonText.textContent = 'Delete';
+                spinner.classList.add('hidden');
+            }
+        }
+
+
+        // Event listeners setup
+        function setupEventListeners() {
+            // Add Team Modal
+            if (addTeamBtn) addTeamBtn.addEventListener('click', () => openModal('addTeamModal'));
+            if (addTeamBtn2) addTeamBtn2.addEventListener('click', () => openModal('addTeamModal'));
+
+            const cancelAddTeam = document.getElementById('cancelAddTeam');
+            if (cancelAddTeam) cancelAddTeam.addEventListener('click', () => closeModal('addTeamModal'));
+
+            const addTeamForm = document.getElementById('addTeamForm');
+            if (addTeamForm) addTeamForm.addEventListener('submit', handleAddTeam);
+
+            // Edit Team Modal event listeners
+            const cancelEditTeam = document.getElementById('cancelEditTeam');
+            if (cancelEditTeam) cancelEditTeam.addEventListener('click', () => closeModal('editTeamModal'));
+
+            const editTeamForm = document.getElementById('editTeamForm');
+            if (editTeamForm) editTeamForm.addEventListener('submit', handleEditTeam);
+
+            // Invite Member Modal
+            const cancelInviteMember = document.getElementById('cancelInviteMember');
+            if (cancelInviteMember) cancelInviteMember.addEventListener('click', () => closeModal('inviteMemberModal'));
+
+            const inviteMemberForm = document.getElementById('inviteMemberForm');
+            if (inviteMemberForm) inviteMemberForm.addEventListener('submit', handleInviteMember);
+
+            // Delete Modal
+            const cancelDelete = document.getElementById('cancelDelete');
+            if (cancelDelete) cancelDelete.addEventListener('click', () => closeModal('deleteModal'));
+
+            const confirmDelete = document.getElementById('confirmDelete');
+            if (confirmDelete) confirmDelete.addEventListener('click', handleDeleteTeam);
+
+            const closeNotificationBtn = document.getElementById('closeNotificationModal');
+            if (closeNotificationBtn) {
+                closeNotificationBtn.addEventListener('click', () => closeModal('notificationModal'));
+            }
+
+            // Close modals on backdrop click
+            document.querySelectorAll('.modal-backdrop').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        closeModal(modal.id);
+                    }
+                });
+            });
+
+            // Keyboard shortcuts
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    const openModals = document.querySelectorAll('.modal-backdrop:not(.hidden)');
+                    if (openModals.length > 0) {
+                        closeModal(openModals[openModals.length - 1].id);
+                    }
+                    
+                    // Close dropdowns
+                    document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                        menu.classList.remove('active');
+                    });
+                }
+            });
+        }
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, initializing...');
+            setupEventListeners();
+            fetchTeam();
+        });
+
+        // Make functions globally available for onclick handlers
+        window.openAddMembersModal = openAddMembersModal;
+        window.openViewMembersModal = openViewMembersModal;
+        window.openEditModal = openEditModal;
+        window.openDeleteModal = openDeleteModal;
+        window.toggleDropdown = toggleDropdown;
+
+
+
+
+
+
+        document.addEventListener("DOMContentLoaded", () => {
+        // ===== Sign Out Modal =====
+        const signOutBtns = document.querySelectorAll(".signOutBtn"); 
+        const modal = document.getElementById("signOutModal");
+        const cancelSignout = document.getElementById("cancelSignout");
+        const confirmSignOut = document.getElementById("confirmSignOut");
+
+        signOutBtns.forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            e.preventDefault();
+            modal.classList.remove("hidden");
+          });
+        });
+
+        if (cancelSignout) {
+          cancelSignout.addEventListener("click", () => {
+            modal.classList.add("hidden");
+          });
+        }
+
+
+
+        // Confirm sign out
+        if (confirmSignOut) {
+          confirmSignOut.addEventListener("click", () => {
+            
+            // Clear user data from localStorage
+            llocalStorage.removeItem("token");
+            localStorage.removeItem("selectedTeamId");
+            localStorage.removeItem("selectedProjectId");
+            localStorage.removeItem("user");
+            
+            // Redirect to login page
+            window.location.href = "../auth/login.html";
+          });
+        }
+
+        // Close modal when clicking outside
+        modal.addEventListener("click", (e) => {
+          if (e.target === modal) {
+            modal.classList.add("hidden");
+          }
+        });
+
+        // ===== Mobile Sidebar Toggle =====
+        const menuBtns = document.querySelectorAll(".menuBtn");
+        const mobileSidebar = document.getElementById("mobileSidebar");
+        const closeBtn = document.getElementById("closeBtn");
+
+        if (menuBtns && mobileSidebar) {
+          menuBtns.forEach((btn) => {
+            btn.addEventListener("click", () => {
+              mobileSidebar.classList.remove("hidden");
+              document.body.style.overflow = "hidden"; // Prevent background scroll
+            });
+          });
+        }
+
+        if (closeBtn && mobileSidebar) {
+          closeBtn.addEventListener("click", () => {
+            mobileSidebar.classList.add("hidden");
+            document.body.style.overflow = "auto"; // Restore scroll
+          });
+        }
+
+        // Close sidebar when clicking outside
+        mobileSidebar.addEventListener("click", (e) => {
+          if (e.target === mobileSidebar) {
+            mobileSidebar.classList.add("hidden");
+            document.body.style.overflow = "auto";
+          }
+        });
+
+        // // ===== Search Toggle =====
+        // const searchImg = document.getElementById("search-img");
+        // const searchBar = document.getElementById("search-bar");
+
+        // if (searchImg && searchBar) {
+        //   searchImg.addEventListener("click", () => {
+        //     searchBar.classList.toggle("hidden");
+        //     if (!searchBar.classList.contains("hidden")) {
+        //       searchBar.querySelector("input").focus();
+        //     }
+        //   });
+        // }
+
+        // ===== Responsive Enhancements =====
+        // Handle window resize
+        window.addEventListener("resize", () => {
+          if (window.innerWidth >= 1280) { // xl breakpoint
+            mobileSidebar.classList.add("hidden");
+            document.body.style.overflow = "auto";
+          }
+        });
+
+        // Add keyboard navigation
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") {
+            if (!modal.classList.contains("hidden")) {
+              modal.classList.add("hidden");
+            }
+            if (!mobileSidebar.classList.contains("hidden")) {
+              mobileSidebar.classList.add("hidden");
+              document.body.style.overflow = "auto";
+            }
+          }
+        });
+      });
+
+
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const user = JSON.parse(localStorage.getItem("user"));
+
+        if (user) {
+          document.getElementById("username").textContent = user.name;
+          if (user.avatar_url) {
+            document.getElementById("avatar").src = user.avatar_url;
+          }
+        } 
+        
+        if (user) {
+          document.getElementById("usernames").textContent = user.name;
+          if (user.avatar_url) {
+            document.getElementById("avatar").src = user.avatar_url;
+          }
+        }
+
+        else {
+          // If not signed in, redirect to homepage
+          window.location.href = "../../../index.html";
+        }
+      });
+
+    </script>
+
+
+    <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const openModal = urlParams.get("openModal");
+    if (openModal === "true") {
+      const addTeamModal = document.getElementById("addTeamModal");
+      if (addTeamModal) addTeamModal.classList.remove("hidden");
+    }
+  });
+  
+</script>
+
+</body>
+</html>
+
